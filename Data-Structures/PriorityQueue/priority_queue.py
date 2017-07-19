@@ -1,4 +1,18 @@
+# Priority Queue implementation using Heap
+# Properties:
+# Insert: logN
+# Remove maximum: logN
+
 class PriorityQueue:
+    """Priority Queue implementation.
+
+    Priority Queue implementation using a heap to
+    store the collection.
+
+    Attributes:
+        __priority_queue: A list, with first element not used.
+        (This is in order to be able to perform index arithmetics)
+    """
     def __init__(self, heap=[]):
         self.__priority_queue = [None]
         self.__priority_queue.extend(heap)
@@ -9,11 +23,28 @@ class PriorityQueue:
     def get_size(self):
         return len(self.__priority_queue)
 
+    def is_empty(self):
+        return self.get_size() == 0
+
     def insert(self, key):
+        """ Insert an arbitrary key in the collection """
         self.__priority_queue.append(key)
         self.swim_up(key)
 
+    def max(self):
+        return self.__priority_queue[1]
+
+    def get_max(self):
+        """ Return and remove the max element in the queue """
+        max_key = self.__priority_queue[1]
+        self.__priority_queue[1] = self.__priority_queue.pop()
+        key = self.__priority_queue[1]
+        self.sink_down(key)
+        return max_key
+
+    # Heap operations:
     def swim_up(self, key, parent=None):
+        """ Swim up a given key in order to maintain heap-order """
         key_index = self.__priority_queue.index(key)
         parent_index = key_index // 2
         parent = self.__priority_queue[parent_index]
@@ -22,16 +53,6 @@ class PriorityQueue:
         self.__priority_queue[parent_index] = key
         self.__priority_queue[key_index] = parent
         self.swim_up(key, parent)
-
-    def max(self):
-        return self.__priority_queue[1]
-
-    def get_max(self):
-        max_key = self.__priority_queue[1]
-        self.__priority_queue[1] = self.__priority_queue.pop()
-        key = self.__priority_queue[1]
-        self.sink_down(key)
-        return max_key
 
     def sink_down(self, key):
         """ Sink down a given key in order to maintain heap-order """
@@ -57,6 +78,3 @@ class PriorityQueue:
                 self.__priority_queue[key_index] = right_child
                 self.__priority_queue[right_child_index] = key
                 self.sink_down(key)
-
-    def __str__(self):
-        return str(self.__priority_queue)
