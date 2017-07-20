@@ -46,6 +46,8 @@ class PriorityQueue:
     def swim_up(self, key, parent=None):
         """ Swim up a given key in order to maintain heap-order """
         key_index = self.__priority_queue.index(key)
+        if key_index <= 1:
+            return
         parent_index = key_index // 2
         parent = self.__priority_queue[parent_index]
         if parent > key:
@@ -78,3 +80,6 @@ class PriorityQueue:
                 self.__priority_queue[key_index] = right_child
                 self.__priority_queue[right_child_index] = key
                 self.sink_down(key)
+
+    def __str__(self):
+        return str(self.__priority_queue)
