@@ -1,14 +1,13 @@
-CC=g++
+OBJS = main.o dynamic_array.o
+CC = g++
+DEBUG = -g
+CFLAGS = -Wall -c $(DEBUG)
 
-CFLAGS=-g -c -Wall
+all : $(OBJS)
+	$(CC) $(OBJS) -o dynamic_array
 
-all: dynamic_array
+main.o : main.cpp dynamic_array.h
+	$(CC) $(CFLAGS) main.cpp
 
-dynamic_array: main.o dynamic_array.o
-							 $(CC) main.o dynamic_array.o -o dynamic_array
-							 
-main.o: main.cpp
-				$(CC) $(CFLAGS) main.cpp
-
-dynamic_array.o: dynamic_array.cpp
-								$(CC) $(CFLAGS) dynamic_array.cpp
+clean :
+	\rm *.o
