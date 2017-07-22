@@ -4,17 +4,20 @@ using namespace std;
 
 int main()
 {
-  DynamicArray<int> array;
-  for(size_t i = 0; i <= 10; i++)
+  DynamicArray<int> array1;
+  for(size_t i = 0; i < 10; i++)
   {
-    array.Append(i);
+    array1.Append(i);
   }
-  array.Print();
-  array.Append(11);
-  array.Append(12);
-  array.Append(12);
-  array.Append(12);
-  array.Insert(0, 666);
-  array.Print();
+  DynamicArray<int> array2;
+  for(size_t i = 10; i < 20; i++)
+  {
+    array2.Append(i);
+  }
+  DynamicArray<int> result;
+  result = array1 + array2;
+  array1.Print();
+  array2.Print();
+  result.Print();
   return 0;
 }

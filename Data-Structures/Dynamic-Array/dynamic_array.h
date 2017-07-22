@@ -1,5 +1,4 @@
 #include<iostream>
-// #include<exception>
 #include "exceptions.h"
 // #pragma once
 //TO-DO:
@@ -28,6 +27,7 @@ public:
 	void Print() const;
 	void Append(T value);
 	bool IsEmpty() const { return size == 0; }
+	DynamicArray& Expand(DynamicArray&);
 	T Pop();
 	T Pop(size_t index);
 	T& First() const { return array[0]; }
@@ -38,7 +38,7 @@ public:
 	T& operator[](size_t index);
 	bool operator==(const DynamicArray&);
 	bool operator!=(const DynamicArray&);
-	// DynamicArray operator+ (const DynamicArray& first, const DynamicArray& second) const;
+	const DynamicArray operator+(DynamicArray& other) const;
 	DynamicArray& operator+=(DynamicArray&);
 
 private:
@@ -131,7 +131,7 @@ T DynamicArray<T>::Pop()
 {
 	if(!size)
 	{
-		throw EmptyArray();
+	  throw EmptyArray();
 	}
 	T last = array[size--];
 	if (size == (capacity/4))
@@ -146,7 +146,7 @@ T DynamicArray<T>::Pop(size_t index)
 {
 	if(index >= size)
 	{
-		throw std::out_of_range("Index Out Of range");
+	  throw std::out_of_range("Index Out Of range");
 	}
 	T item = array[index];
 	for(size_t i = index; i < size; i++)
@@ -191,15 +191,15 @@ void DynamicArray<T>::Print() const
 template<class T>
 int DynamicArray<T>::Count(T value) const
 {
-	int counter = 0;
+	int count = 0;
 	for(size_t i = 0; i < size; i++)
 	{
 	  if(array[i] == value)
 	  {
-	    ++counter;
+	    ++count;
 	  }
 	}
-	return counter;
+	return count;
 }
 
 // Returns the first occurence of value,
@@ -220,7 +220,7 @@ template<class T>
 void DynamicArray<T>::Reverse()
 {
 	size_t start = 0;
-	size_t stop  = this->GetSize() - 1;
+	size_t stop  = size - 1;
 	while(start < stop)
 	{
 	  T temp = array[start];
@@ -270,6 +270,18 @@ DynamicArray<T>& DynamicArray<T>::operator+=(DynamicArray& other)
 		Append(other[i]);
 	}
 	return *this;
+}
+
+template<class T>
+DynamicArray<T>& DynamicArray<T>::Expand(DynamicArray& other)
+{
+	return operator+=(other);
+}
+
+template<class T>
+const DynamicArray<T> DynamicArray<T>::operator+(DynamicArray& other) const
+{
+	return DynamicArray<T>(*this) += other;
 }
 
 template<class T>
