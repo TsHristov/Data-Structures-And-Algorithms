@@ -1,5 +1,8 @@
 #include<iostream>
 #pragma once
+//TO-DO:
+// *implement forward iterator
+// *implement reverse iterator
 
 template<class T>
 class DynamicArray
@@ -7,7 +10,7 @@ class DynamicArray
 	private:
 		size_t size;
 		size_t capacity;
-		T* phead;
+		T * array;
 
 	public:
 		DynamicArray();
@@ -16,14 +19,21 @@ class DynamicArray
 		DynamicArray& operator=(const DynamicArray&);
 
 	public:
-		void Insert(T);
-		void RemoveElement();
+		void Append(T value);
+		T Pop(); // Remove and retrieve last element
 		size_t GetSize() const;
 		T& operator[](int);
+		//TO-DO:
+		int Index(T value) const;
+		int Count(T value) const;
+		// void Remove(T value);
+		// void Reverse();
+		// Insert value at given index
+		// void Insert(int index=size-1, T value);
 		void Print() const;
 
 	private:
-		void Resize();
+		void Resize(int);
 		void Free();
 };
 
@@ -32,7 +42,7 @@ DynamicArray<T>::DynamicArray()
 {
 	size     = 0;
 	capacity = 4;
-	phead    = new T[capacity];
+	array    = new T[capacity];
 }
 
 template<class T>
@@ -42,33 +52,33 @@ DynamicArray<T>::~DynamicArray()
 }
 
 template<class T>
-DynamicArray<T>::DynamicArray(const DynamicArray& o)
+DynamicArray<T>::DynamicArray(const DynamicArray& other)
 {
-	phead = new T[o.capacity];
-	for (size_t i = 0; i <= o.size; ++i){
-		phead[i] = o.phead[i];
+	array = new T[other.capacity];
+	for (size_t i = 0; i <= other.size; ++i){
+		array[i] = other.array[i];
 	}
-	size = o.size;
-	capacity = o.capacity;
+	size     = other.size;
+	capacity = other.capacity;
 }
 
 template<class T>
-DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray& o)
+DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray& other)
 {
-	if (this == &o)
+	if (this == &other)
   {
 		return *this;
 	}
 	else
   {
 		Free();
-		phead = new T[o.capacity];
-		for (size_t i = 0; i < o.capacity; ++i)
+		array = new T[other.capacity];
+		for (size_t i = 0; i < other.capacity; ++i)
     {
-			phead[i] = o.phead[i];
+			array[i] = other.array[i];
 		}
-		size     = o.size;
-		capacity = o.capacity;
+		size     = other.size;
+		capacity = other.capacity;
 	}
 	return *this;
 }
@@ -81,57 +91,97 @@ T& DynamicArray<T>::operator[](int index)
 		std::cout << "Index out of bounds!" << '\n';
 		// TO-DO: Throw exception!
 	}
-	return phead[index];
+	return array[index];
 }
 
 template<class T>
-void DynamicArray<T>::Insert(T element)
+void DynamicArray<T>::Append(T value)
 {
 	if (size == capacity)
 	{
-		this->Resize();
+		Resize(capacity * 2);
 	}
-	phead[size++] = element;
+	array[size++] = value;
 }
 
 template<class T>
-void DynamicArray<T>::Resize()
+void DynamicArray<T>::Resize(int new_capacity)
 {
-	T * resized = new T[capacity * 2];
-	for (size_t i = 0; i < capacity; ++i){
-		resized[i] = phead[i];
+	std::cout  << "Resize() with " << new_capacity << "\n";
+	T * resized = new T[new_capacity];
+	for (size_t i = 0; i < size; ++i)
+	{
+		resized[i] = array[i];
 	}
-	delete[] phead;
-	capacity *= 2;
-	phead = resized;
+	delete[] array;
+	capacity = new_capacity;
+	array    = resized;
 }
 
 template<class T>
-void DynamicArray<T>::RemoveElement()
+T DynamicArray<T>::Pop()
 {
-	--size;
+	T last = array[size--];
+	if (size == (capacity/4))
+	{
+		Resize(capacity/2);
+	}
+	return last;
 }
 
 template<class T>
 void DynamicArray<T>::Free()
 {
-	if (phead)
+	if (array)
   {
-		delete[] phead;
-		phead = NULL;
+		delete[] array;
+		array = NULL;
 	}
-	size = 0;
+	size     = 0;
 	capacity = 0;
 }
 
 template<class T>
 void DynamicArray<T>::Print() const
 {
-	for (size_t i = 0; i < capacity; ++i){
-		std::cout << phead[i];
+	std::cout << "Capacity:" << capacity << "\n";
+	std::cout << "Size:" << size << "\n";
+	std::cout << "[";
+	for (size_t i = 0; i < size; ++i)
+	{
+		std::cout << " " << array[i];
 	}
-	std::cout << '\n';
+	std::cout << " ]";
+	std::cout << "\n";
 }
+
+// O(n), where n is the size of the array
+template<class T>
+int DynamicArray<T>::Count(T value) const
+{
+	int counter = 0;
+	for(size_t i = 0; i < size; i++)
+	{
+		if(array[i] == value)
+		{
+			++counter;
+		}
+	}
+	return counter;
+}
+
+// Returns the first occurence of value
+template<class T>
+int DynamicArray<T>::Index(T value) const
+{
+	size_t i;
+	for(i = 0; i < size; i++)
+	{
+		if(array[i] == value) break;
+	}
+	return i;
+}
+
 
 template<class T>
 size_t DynamicArray<T>::GetSize() const
