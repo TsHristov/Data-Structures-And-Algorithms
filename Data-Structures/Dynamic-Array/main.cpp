@@ -5,21 +5,16 @@ using namespace std;
 int main()
 {
   DynamicArray<int> array;
-  for(size_t i = 0; i <= 20; i++)
+  for(size_t i = 0; i <= 10; i++)
   {
     array.Append(i);
-  }
-  size_t size = array.GetSize();
-  while(size > 8)
-  {
-    cout << array.Pop() << "\n";
-    --size;
   }
   array.Print();
-  for(size_t i = 0; i < 9; i++)
-  {
-    array.Append(i);
-  }
+  array.Append(11);
+  array.Append(12);
+  array.Append(12);
+  array.Append(12);
+  array.Insert(0, 666);
   array.Print();
   return 0;
 }

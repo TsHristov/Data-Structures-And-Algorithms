@@ -7,34 +7,32 @@
 template<class T>
 class DynamicArray
 {
-	private:
-		size_t size;
-		size_t capacity;
-		T * array;
+private:
+	size_t size;
+	size_t capacity;
+	T * array;
 
-	public:
-		DynamicArray();
-		~DynamicArray();
-		DynamicArray(const DynamicArray&);
-		DynamicArray& operator=(const DynamicArray&);
+public:
+	DynamicArray();
+	~DynamicArray();
+	DynamicArray(const DynamicArray&);
+	DynamicArray& operator=(const DynamicArray&);
 
-	public:
-		void Append(T value);
-		T Pop(); // Remove and retrieve last element
-		size_t GetSize() const;
-		T& operator[](int);
-		//TO-DO:
-		int Index(T value) const;
-		int Count(T value) const;
-		// void Remove(T value);
-		// void Reverse();
-		// Insert value at given index
-		// void Insert(int index=size-1, T value);
-		void Print() const;
+public:
+	int Index(T value) const;
+	int Count(T value) const;
+	void Reverse();
+	void Insert(int index, T value);
+	void Print() const;
+	void Append(T value);
+	T Pop();
+	size_t GetSize() const;
+	T& operator[](int);
 
-	private:
-		void Resize(int);
-		void Free();
+
+private:
+	void Resize(int);
+	void Free();
 };
 
 template<class T>
@@ -66,15 +64,15 @@ template<class T>
 DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray& other)
 {
 	if (this == &other)
-  {
+	{
 		return *this;
 	}
 	else
-  {
+	{
 		Free();
 		array = new T[other.capacity];
 		for (size_t i = 0; i < other.capacity; ++i)
-    {
+		{
 			array[i] = other.array[i];
 		}
 		size     = other.size;
@@ -87,7 +85,7 @@ template<class T>
 T& DynamicArray<T>::operator[](int index)
 {
 	if (index < 0 || index > capacity - 1)
-  {
+	{
 		std::cout << "Index out of bounds!" << '\n';
 		// TO-DO: Throw exception!
 	}
@@ -133,7 +131,7 @@ template<class T>
 void DynamicArray<T>::Free()
 {
 	if (array)
-  {
+	{
 		delete[] array;
 		array = NULL;
 	}
@@ -182,6 +180,32 @@ int DynamicArray<T>::Index(T value) const
 	return i;
 }
 
+// O(n) - should pass through all the elements
+template<class T>
+void DynamicArray<T>::Reverse()
+{
+	size_t start = 0;
+	size_t stop  = this->GetSize() - 1;
+	while(start < stop)
+	{
+		T temp = array[start];
+		array[start++] = array[stop];
+		array[stop--]  = temp;
+	}
+}
+
+template<class T>
+void DynamicArray<T>::Insert(int index, T value)
+{
+	int i;
+	for(i = GetSize(); i > index; i--)
+	{
+		array[i] = array[i-1];
+	}
+	++size;
+	if(size == capacity) Resize(capacity*2);
+	array[i] = value;
+}
 
 template<class T>
 size_t DynamicArray<T>::GetSize() const
