@@ -1,9 +1,5 @@
 #include<iostream>
 #include "exceptions.h"
-// #pragma once
-//TO-DO:
-// *implement forward iterator
-// *implement reverse iterator
 
 template<class T>
 class DynamicArray
@@ -38,8 +34,8 @@ public:
 	T& operator[](size_t index);
 	bool operator==(const DynamicArray&);
 	bool operator!=(const DynamicArray&);
-	const DynamicArray operator+(DynamicArray& other) const;
 	DynamicArray& operator+=(DynamicArray&);
+	const DynamicArray operator+(DynamicArray& other) const;
 
 private:
 	void Resize(size_t);

@@ -1,23 +1,36 @@
 #include <iostream>
 #include "dynamic_array.h"
-using namespace std;
+
+void Test_CreateDynamicArray()
+{
+  std::cout << "Can create empty array...";
+  DynamicArray<int> array;
+  std::cout << "OK\n";
+}
+
+void Test_AppendToArray()
+{
+  std::cout << "can append value to end of array...";
+  DynamicArray<int> array;
+  array.Append(10);
+  std::cout << (array.Last() == 10 ? "OK\n" : "NOK\n");
+}
+
+void Test_GetIndexOfElement()
+{
+  std::cout << "can retrieve the index of an element...";
+  DynamicArray<int> array;
+  array.Append(10);
+  bool condition1 = array.Index(10) == 0;
+  bool condition2 = array.Index(-666) == -1;
+  std::cout << (condition1 && condition2 ? "OK\n" : "NOK\n");
+}
 
 int main()
 {
-  DynamicArray<int> array1;
-  for(size_t i = 0; i < 10; i++)
-  {
-    array1.Append(i);
-  }
-  DynamicArray<int> array2;
-  for(size_t i = 10; i < 20; i++)
-  {
-    array2.Append(i);
-  }
-  DynamicArray<int> result;
-  result = array1 + array2;
-  array1.Print();
-  array2.Print();
-  result.Print();
+  std::cout << "Class DynamicArray: \n";
+  Test_CreateDynamicArray();
+  Test_AppendToArray();
+  Test_GetIndexOfElement();
   return 0;
 }
