@@ -23,19 +23,23 @@ public:
 	void Print() const;
 	void Append(T value);
 	bool IsEmpty() const { return size == 0; }
-	DynamicArray& Expand(DynamicArray&);
+	DynamicArray& Expand(DynamicArray& other) { return operator+=(other); }
 	T Pop();
 	T Pop(size_t index);
 	T& First() const { return array[0]; }
 	T& Last()  const { return array[size-1]; }
-	size_t GetSize() const;
+	size_t GetSize() const { return size; }
+	size_t GetCapacity() const { return capacity; }
 
 public:
 	T& operator[](size_t index);
 	bool operator==(const DynamicArray&);
 	bool operator!=(const DynamicArray&);
 	DynamicArray& operator+=(DynamicArray&);
-	const DynamicArray operator+(DynamicArray& other) const;
+	const DynamicArray operator+(DynamicArray& other) const
+	{
+		return DynamicArray<T>(*this) += other;
+	}
 
 private:
 	void Resize(size_t);
@@ -129,7 +133,7 @@ T DynamicArray<T>::Pop()
 	{
 	  throw EmptyArray();
 	}
-	T last = array[size--];
+	T last = array[--size];
 	if (size == (capacity/4))
 	{
 	  Resize(capacity/2);
@@ -266,22 +270,4 @@ DynamicArray<T>& DynamicArray<T>::operator+=(DynamicArray& other)
 		Append(other[i]);
 	}
 	return *this;
-}
-
-template<class T>
-DynamicArray<T>& DynamicArray<T>::Expand(DynamicArray& other)
-{
-	return operator+=(other);
-}
-
-template<class T>
-const DynamicArray<T> DynamicArray<T>::operator+(DynamicArray& other) const
-{
-	return DynamicArray<T>(*this) += other;
-}
-
-template<class T>
-size_t DynamicArray<T>::GetSize() const
-{
-	return size;
 }
