@@ -8,3 +8,4 @@ the list
 of the list
   - `O(1)`
 * `bool IsEmpty() const` - checks whether the list is empty
+  - `O(1)`

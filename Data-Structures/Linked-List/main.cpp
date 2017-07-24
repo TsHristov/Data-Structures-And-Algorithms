@@ -42,14 +42,39 @@ void Test_PushBack()
   std::cout << ((condition1 && condition2) ? "OK\n" : "NOK\n");
 }
 
-void Print_Example()
+void Test_CopyConstructor()
 {
+  std::cout << "can create an instance from another one...";
   LinkedList<int> list;
-  for(int i = 0; i < 10; ++i)
+  for(int i = 0; i < 10; i++)
   {
     list.PushBack(i);
   }
-  list.Print();
+  LinkedList<int> other(list);
+  bool condition = true;
+  for(int i = 0; i < 10; i++)
+  {
+    if(other.PopFront() != i) condition = false;
+  }
+  std::cout << ( condition ? "OK\n" : "NOK\n");
+}
+
+void Test_OperatorEqual()
+{
+  std::cout << "can create an instance from another one using operator=...";
+  LinkedList<int> list;
+  for(int i = 0; i < 10; i++)
+  {
+    list.PushBack(i);
+  }
+  LinkedList<int> other;
+  other = list;
+  bool condition = true;
+  for(int i = 0; i < 10; i++)
+  {
+    if(other.PopFront() != i) condition = false;
+  }
+  std::cout << ( condition ? "OK\n" : "NOK\n");
 }
 
 int main()
@@ -58,6 +83,7 @@ int main()
   Test_PushFront();
   Test_PopFront();
   Test_PushBack();
-  Print_Example();
+  Test_CopyConstructor();
+  Test_OperatorEqual();
   return 0;
 }

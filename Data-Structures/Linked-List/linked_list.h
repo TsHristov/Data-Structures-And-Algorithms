@@ -1,5 +1,4 @@
 #pragma once
-#include <assert.h>
 #include "node.h"
 #include "exceptions.h"
 
@@ -12,14 +11,13 @@ private:
   size_t size;
 
 public:
-  LinkedList(): first(NULL), last(NULL), size(0) {};
+  LinkedList() { Initialize(); };
   ~LinkedList();
-  // LinkedList(const LinkedList&);
-  // LinkedList& operator=(const LinkedList&);
+  LinkedList(const LinkedList&);
+  LinkedList& operator=(const LinkedList&);
 
 public:
   void PushFront(const T&);
-  T PopFront();
   void PushBack(const T&);
   bool Empty() const { return size == 0; }
   void Print() const;
@@ -33,11 +31,26 @@ public:
     if(Empty()) throw EmptyList();
     else return last->GetData();
   }
+  T PopFront();
   size_t GetSize() const { return size; }
+
+private:
+  void Initialize();
+  void Free();
+  void CopyFrom(const LinkedList&);
 };
 
+
 template<class T>
-LinkedList<T>::~LinkedList()
+void LinkedList<T>::Initialize()
+{
+  first = NULL;
+  last  = NULL;
+  size  = 0;
+}
+
+template<class T>
+void LinkedList<T>::Free()
 {
   Node<T> * next    = first;
   Node<T> * current = first;
@@ -47,6 +60,45 @@ LinkedList<T>::~LinkedList()
     next    = current->GetNext();
     delete current;
   }
+}
+
+template<class T>
+void LinkedList<T>::CopyFrom(const LinkedList& other)
+{
+  Node<T> * temp = other.first;
+  T data;
+  while(temp)
+  {
+    data = temp->GetData();
+    temp = temp->GetNext();
+    PushBack(data);
+  }
+}
+
+template<class T>
+LinkedList<T>::LinkedList(const LinkedList& other)
+{
+    Initialize();
+    CopyFrom(other);
+}
+
+template<class T>
+LinkedList<T>& LinkedList<T>::operator=(const LinkedList& other)
+{
+  if(this == &other) return *this;
+  else
+  {
+    Free();
+    Initialize();
+    CopyFrom(other);
+    return *this;
+  }
+}
+
+template<class T>
+LinkedList<T>::~LinkedList()
+{
+  Free();
 }
 
 template<class T>
