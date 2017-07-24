@@ -1,4 +1,5 @@
 #pragma once
+#include <assert.h>
 #include "node.h"
 #include "exceptions.h"
 
@@ -12,6 +13,7 @@ private:
 
 public:
   LinkedList(): first(NULL), last(first), size(0) {};
+  // Traverses the chain and deletes the nodes recursively:
   ~LinkedList() { if(first) delete first; }
   // LinkedList(const LinkedList&);
   // LinkedList& operator=(const LinkedList&);
@@ -54,16 +56,18 @@ void LinkedList<T>::PushFront(const T& data)
 template<class T>
 T LinkedList<T>::PopFront()
 {
-  if(Empty())
+  if(Empty() || !first) throw EmptyList();
+  else
   {
-    throw EmptyList();
+    Node<T> * old = first;
+    T data = first->GetData();
+    first  = first->GetNext();
+    // If there are no elements:
+    if(first == NULL) last = NULL;
+    --size;
+    delete old;
+    return data;
   }
-  T data = first->GetData();
-  Node<T> * next = first->GetNext();
-  // delete first;
-  --size;
-  first = next;
-  return data;
 }
 
 template<class T>

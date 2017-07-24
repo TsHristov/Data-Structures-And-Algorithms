@@ -1,11 +1,12 @@
 #pragma once
-template<class T>
+#include <iostream>
 
+template<class T>
 class Node
 {
 private:
   T data;
-  Node * next;
+  Node<T> * next;
 
 public:
   Node(const T& data, Node * next=NULL)
@@ -14,11 +15,9 @@ public:
     this->next = next;
   }
 
-  ~Node(){ if(next) delete next; }
-
 public:
   void SetData(const T& data) { this->data = data; }
-  T GetData() { return data; }
+  T GetData() const { return data; }
   void SetNext(Node * next) { this->next = next; }
-  Node * GetNext() { return next; }
+  Node * GetNext() { if(next) return next; else return NULL; }
 };

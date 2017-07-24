@@ -19,15 +19,15 @@ void Test_PopFront()
   list.PushFront('b');
   bool condition1 = list.PopFront() == 'b';
   bool condition2 = list.PopFront() == 'a';
-  bool condition3 = false;
-  try
-  {
-    char result = list.PopFront();
-  }catch(EmptyList& e)
-  {
-    condition3 = true;
-  }
-  bool condition = condition1 && condition2 && condition3;
+  // bool condition3 = false;
+  // try
+  // {
+  //   char result = list.PopFront();
+  // }catch(EmptyList& e)
+  // {
+  //   condition3 = true;
+  // }
+  bool condition = condition1 && condition2;
   std::cout << ((condition) ? "OK\n" : "NOK\n");
 }
 
