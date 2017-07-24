@@ -12,9 +12,8 @@ private:
   size_t size;
 
 public:
-  LinkedList(): first(NULL), last(first), size(0) {};
-  // Traverses the chain and deletes the nodes recursively:
-  ~LinkedList() { if(first) delete first; }
+  LinkedList(): first(NULL), last(NULL), size(0) {};
+  ~LinkedList();
   // LinkedList(const LinkedList&);
   // LinkedList& operator=(const LinkedList&);
 
@@ -38,17 +37,30 @@ public:
 };
 
 template<class T>
+LinkedList<T>::~LinkedList()
+{
+  Node<T> * next    = first;
+  Node<T> * current = first;
+  while(next)
+  {
+    current = next;
+    next    = current->GetNext();
+    delete current;
+  }
+}
+
+template<class T>
 void LinkedList<T>::PushFront(const T& data)
 {
-  if(!Empty())
-  {
-    Node<T> * old_first = first;
-    first  = new Node<T>(data, old_first);
-  }
-  else
+  if(Empty())
   {
     first = new Node<T>(data,NULL);
     last  = first;
+  }
+  else
+  {
+    Node<T> * old_first = first;
+    first  = new Node<T>(data, old_first);
   }
   ++size;
 }
@@ -73,23 +85,29 @@ T LinkedList<T>::PopFront()
 template<class T>
 void LinkedList<T>::PushBack(const T& data)
 {
-  if(!Empty())
+  if(Empty())
+  {
+    first = new Node<T>(data, NULL);
+    last  = first;
+  }
+  else
   {
     Node<T> * old_last = last;
     last = new Node<T>(data, NULL);
     old_last->SetNext(last);
   }
-  else
-  {
-    first = new Node<T>(data, NULL);
-    last  = first;
-  }
   ++size;
 }
-
 
 template<class T>
 void LinkedList<T>::Print() const
 {
-
+  Node<T> * temp = first;
+  std::cout << "List contents: ";
+  while(temp)
+  {
+    std::cout << "|" << temp->GetData() << "|->";
+    temp = temp->GetNext();
+  }
+  std::cout << "NULL\n";
 }
