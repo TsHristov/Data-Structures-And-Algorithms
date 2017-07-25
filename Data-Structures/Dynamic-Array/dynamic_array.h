@@ -224,6 +224,7 @@ void DynamicArray<T>::Insert(size_t index, T value)
 template<class T>
 bool DynamicArray<T>::operator==(const DynamicArray& other)
 {
+  if(this == &other) return true;
   int this_lenght  = size;
   int other_lenght = other.GetSize();
   if(this_lenght != other_lenght) return false;

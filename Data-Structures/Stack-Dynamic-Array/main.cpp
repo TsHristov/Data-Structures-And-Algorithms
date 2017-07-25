@@ -60,9 +60,42 @@ void Test_GetTop()
   std::cout << (condition ? "OK\n" : "NOK\n");
 }
 
+void Test_Create()
+{
+  std::cout << "can construct a stack from another one...";
+  Stack<int> stack1;
+  stack1.Push(1);
+  stack1.Push(2);
+  Stack<int> stack2(stack1);
+  bool condition1 = stack2 == stack1;
+  stack2.Push(3);
+  stack1 = stack2;
+  bool condition2 = stack1.Top() == 3;
+  bool condition  = condition1 && condition2;
+  std::cout << (condition ? "OK\n" : "NOK\n");
+}
+
+void Test_Compare()
+{
+  std::cout << "can compare two stacks...";
+  Stack<int> stack1;
+  stack1.Push(1);
+  stack1.Push(2);
+  Stack<int> stack2;
+  stack2.Push(1);
+  stack2.Push(2);
+  bool condition1 = stack1 == stack2;
+  stack2.Push(3);
+  bool condition2 = stack1 != stack2;
+  bool condition  = condition1 && condition2;
+  std::cout << (condition ? "OK\n" : "NOK\n");
+}
+
 int main()
 {
   std::cout << "Class Stack: \n";
+  Test_Create();
+  Test_Compare();
   Test_Push();
   Test_Pop();
   Test_GetSize();

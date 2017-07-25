@@ -8,8 +8,15 @@ private:
 
 public:
   Stack() {};
-  Stack(const Stack&);
-  Stack& operator=(const Stack&);
+  Stack(const Stack& other): stack(other.stack) {};
+  Stack& operator=(const Stack& other)
+  {
+    if(this == &other) return *this;
+    stack = other.stack;
+    return *this;
+   };
+  bool operator==(const Stack& other)  { return stack == other.stack; };
+  bool operator!=(const Stack& other)  { return stack != other.stack; };
 
 public:
   void Push(const T& data) { stack.Append(data); }
@@ -18,7 +25,4 @@ public:
   bool Empty() const { return stack.Empty(); }
   void Print() const { stack.Print(); }
   size_t GetSize() const { return stack.GetSize();}
-
-private:
-  void CopyFrom(const Stack&);
 };
