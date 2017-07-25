@@ -1,4 +1,4 @@
-OBJS = main.o dynamic_array.o
+OBJS = main.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c $(DEBUG)
