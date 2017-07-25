@@ -50,6 +50,7 @@ void Test_CopyConstructor()
   {
     list.PushBack(i);
   }
+  list.Print();
   LinkedList<int> other(list);
   bool condition = true;
   for(int i = 0; i < 10; i++)
@@ -77,6 +78,32 @@ void Test_OperatorEqual()
   std::cout << ( condition ? "OK\n" : "NOK\n");
 }
 
+void Test_Iterator()
+{
+  std::cout << "can iterate throught the list via iterator object...";
+  LinkedList<int> list;
+  for(int i = 0; i < 10; i++)
+  {
+    list.PushBack(i);
+  }
+  bool condition1 = true;
+  int j;
+  Iterator<int> i = list.ForwardIterator();
+  for(i, j = 0; !i.End() && j<10; i.Next(), j++)
+  {
+    if(i.Get() != j) condition1 = false;
+  }
+  bool condition2 = false;
+  try
+  {
+    i.Next();
+  }catch(EmptyList& e)
+  {
+    condition2 = true;
+  }
+  std::cout << ((condition1 && condition2) ? "OK\n" : "NOK\n");
+}
+
 int main()
 {
   std::cout << "Class LinkedList: \n";
@@ -85,5 +112,6 @@ int main()
   Test_PushBack();
   Test_CopyConstructor();
   Test_OperatorEqual();
+  Test_Iterator();
   return 0;
 }

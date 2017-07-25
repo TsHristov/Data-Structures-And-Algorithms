@@ -1,6 +1,7 @@
 #pragma once
 #include "node.h"
 #include "exceptions.h"
+#include "list_iterator.h"
 
 template<class T>
 class LinkedList
@@ -33,6 +34,9 @@ public:
   }
   T PopFront();
   size_t GetSize() const { return size; }
+
+public:
+  Iterator<T> ForwardIterator() const { return Iterator<T>(this->first); }
 
 private:
   void Initialize();
@@ -154,12 +158,8 @@ void LinkedList<T>::PushBack(const T& data)
 template<class T>
 void LinkedList<T>::Print() const
 {
-  Node<T> * temp = first;
   std::cout << "List contents: ";
-  while(temp)
-  {
-    std::cout << "|" << temp->GetData() << "|->";
-    temp = temp->GetNext();
-  }
+  for(Iterator<T> i = ForwardIterator(); !i.End(); i.Next())
+    std::cout << "|" << i.Get() << "|->";
   std::cout << "NULL\n";
 }

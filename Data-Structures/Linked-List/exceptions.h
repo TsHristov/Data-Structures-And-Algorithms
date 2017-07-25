@@ -1,3 +1,4 @@
+#pragma once
 #include <exception>
 
 class EmptyList: public std::exception
