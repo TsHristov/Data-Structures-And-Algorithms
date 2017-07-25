@@ -192,6 +192,41 @@ void Test_Resize()
   std::cout << (condition3 ? "OK\n" : "NOK\n");
 }
 
+void Test_ForwardIterator()
+{
+  std::cout << "can iterate over the array in forward direction...";
+  DynamicArray<int> array;
+  for(size_t i = 0; i < 5; i++)
+  {
+    array.Append(i);
+  }
+  bool condition = true;
+  int j;
+  ForwardIterator<int> iterator = array.GetForwardIterator();
+  for(j=0; !iterator.End() && j <= 4; iterator.Next(), j++)
+  {
+    if(iterator.Get() != j) condition = false;
+  }
+  std::cout << (condition ? "OK\n" : "NOK\n");
+}
+
+void Test_ReverseIterator()
+{
+  std::cout << "can iterate over the array in reverse direction...";
+  DynamicArray<int> array;
+  for(size_t i = 0; i < 5; i++)
+  {
+    array.Append(i);
+  }
+  bool condition = true;
+  int i;
+  ReverseIterator<int> iterator = array.GetReverseIterator();
+  for(i=4; !iterator.End() && i >= 0; iterator.Next(), i--)
+  {
+    if(iterator.Get() != i) condition = false;
+  }
+  std::cout << (condition ? "OK\n" : "NOK\n");
+}
 int main()
 {
   std::cout << "Class DynamicArray: \n";
@@ -208,5 +243,7 @@ int main()
   Test_OperatorSquareBrackets();
   Test_Compare();
   Test_Resize();
+  Test_ForwardIterator();
+  Test_ReverseIterator();
   return 0;
 }

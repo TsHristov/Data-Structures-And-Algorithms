@@ -1,5 +1,6 @@
 #include<iostream>
 #include "exceptions.h"
+#include "iterator.h"
 
 template<class T>
 class DynamicArray
@@ -39,6 +40,19 @@ public:
   const DynamicArray operator+(DynamicArray& other) const
   {
     return DynamicArray<T>(*this) += other;
+  }
+
+public:
+  ForwardIterator<T> GetForwardIterator() const
+  {
+    T * temp = array;
+    return ForwardIterator<T>(temp, size);
+  }
+
+  ReverseIterator<T> GetReverseIterator() const
+  {
+    T * temp = array;
+    return ReverseIterator<T>(temp, size);
   }
 
 private:
@@ -165,10 +179,8 @@ void DynamicArray<T>::Print() const
   std::cout << "Capacity:" << capacity << "\n";
   std::cout << "Size:" << size << "\n";
   std::cout << "[";
-  for (size_t i = 0; i < size; ++i)
-  {
-    std::cout << " " << array[i];
-  }
+  for(ForwardIterator<T> i = GetForwardIterator(); !i.End(); i.Next())
+    std::cout << " " << i.Get();
   std::cout << " ]";
   std::cout << "\n";
 }
