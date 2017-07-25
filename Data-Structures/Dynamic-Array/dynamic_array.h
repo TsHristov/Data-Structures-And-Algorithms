@@ -22,12 +22,12 @@ public:
   void Insert(size_t index, T value);
   void Print() const;
   void Append(T value);
-  bool IsEmpty() const { return size == 0; }
+  bool Empty() const { return size == 0; }
   DynamicArray& Expand(DynamicArray& other) { return operator+=(other); }
   T Pop();
   T Pop(size_t index);
-  T& First() const { return array[0]; }
-  T& Last()  const { return array[size-1]; }
+  T& First() const { if(Empty()) throw EmptyArray(); else return array[0]; }
+  T& Last()  const { if(Empty()) throw EmptyArray(); else return array[size-1]; }
   size_t GetSize() const { return size; }
   size_t GetCapacity() const { return capacity; }
 
@@ -44,6 +44,7 @@ public:
 private:
   void Resize(size_t);
   void Free();
+  void CopyFrom(const DynamicArray&);
 };
 
 template<class T>
@@ -61,7 +62,7 @@ DynamicArray<T>::~DynamicArray()
 }
 
 template<class T>
-DynamicArray<T>::DynamicArray(const DynamicArray& other)
+void DynamicArray<T>::CopyFrom(const DynamicArray& other)
 {
   array = new T[other.capacity];
   for (size_t i = 0; i <= other.size; ++i)
@@ -73,43 +74,34 @@ DynamicArray<T>::DynamicArray(const DynamicArray& other)
 }
 
 template<class T>
+DynamicArray<T>::DynamicArray(const DynamicArray& other)
+{
+  CopyFrom(other);
+}
+
+template<class T>
 DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray& other)
 {
-  if (this == &other)
-  {
-    return *this;
-  }
+  if (this == &other) return *this;
   else
   {
     Free();
-    array = new T[other.capacity];
-    for (size_t i = 0; i < other.capacity; ++i)
-    {
-      array[i] = other.array[i];
-    }
-    size     = other.size;
-    capacity = other.capacity;
+    CopyFrom(other);
+    return *this;
   }
-  return *this;
 }
 
 template<class T>
 T& DynamicArray<T>::operator[](size_t index)
 {
-  if (index >= size)
-  {
-    throw std::out_of_range("Index Out Of Range!");
-  }
+  if (index >= size) throw std::out_of_range("Index Out Of Range!");
   return array[index];
 }
 
 template<class T>
 void DynamicArray<T>::Append(T value)
 {
-  if (size == capacity)
-  {
-    Resize(capacity * 2);
-  }
+  if (size == capacity) Resize(capacity * 2);
   array[size++] = value;
 }
 
@@ -129,36 +121,30 @@ void DynamicArray<T>::Resize(size_t new_capacity)
 template<class T>
 T DynamicArray<T>::Pop()
 {
-  if(!size)
+  if(Empty()) throw EmptyArray();
+  else
   {
-    throw EmptyArray();
+    T last = array[--size];
+    if (size == (capacity/4)) Resize(capacity/2);
+    return last;
   }
-  T last = array[--size];
-  if (size == (capacity/4))
-  {
-    Resize(capacity/2);
-  }
-  return last;
 }
 
 template<class T>
 T DynamicArray<T>::Pop(size_t index)
 {
-  if(index >= size)
+  if(index >= size) throw std::out_of_range("Index Out Of range");
+  else
   {
-    throw std::out_of_range("Index Out Of range");
+    T item = array[index];
+    for(size_t i = index; i < size; i++)
+    {
+      array[index] = array[index+1];
+    }
+    --size;
+    if(size == (capacity/4)) Resize(capacity/4);
+    return item;
   }
-  T item = array[index];
-  for(size_t i = index; i < size; i++)
-  {
-    array[index] = array[index+1];
-  }
-  --size;
-  if(size == (capacity/4))
-  {
-    Resize(capacity/4);
-  }
-  return item;
 }
 
 template<class T>
@@ -187,23 +173,17 @@ void DynamicArray<T>::Print() const
   std::cout << "\n";
 }
 
-// O(n), where n is the size of the array
 template<class T>
 int DynamicArray<T>::Count(T value) const
 {
   int count = 0;
   for(size_t i = 0; i < size; i++)
   {
-    if(array[i] == value)
-    {
-      ++count;
-    }
+    if(array[i] == value) ++count;
   }
   return count;
 }
 
-// Returns the first occurence of value,
-// otherwise returns -1.
 template<class T>
 int DynamicArray<T>::Index(T value) const
 {
@@ -215,7 +195,6 @@ int DynamicArray<T>::Index(T value) const
   return -1;
 }
 
-// O(n) - should pass through all the elements
 template<class T>
 void DynamicArray<T>::Reverse()
 {

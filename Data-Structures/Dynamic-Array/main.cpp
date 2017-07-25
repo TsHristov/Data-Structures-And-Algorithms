@@ -72,9 +72,9 @@ void Test_Empty()
 {
   std::cout << "can check if container is empty...";
   DynamicArray<int> array;
-  bool condition1 = array.IsEmpty();
+  bool condition1 = array.Empty();
   array.Append(0);
-  bool condition2 = !array.IsEmpty();
+  bool condition2 = !array.Empty();
   std::cout << (condition1 && condition2 ? "OK\n" : "NOK\n");
 }
 
@@ -118,7 +118,15 @@ void Test_Pop()
   {
     condition3 = true;
   }
-  bool condition = condition1 && condition2 && condition3;
+  bool condition4 = false;
+  try
+  {
+    array.Pop(-666);
+  }catch(std::out_of_range& e)
+  {
+    condition4 = true;
+  }
+  bool condition = condition1 && condition2 && condition3 && condition4;
   std::cout << (condition ? "OK\n" : "NOK\n");
 }
 
