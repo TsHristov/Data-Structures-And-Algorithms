@@ -1,4 +1,4 @@
-#include "../Dynamic-Array/dynamic_array.h"
+#include "../../Dynamic-Array/dynamic_array.h"
 
 template<class T>
 class Stack
