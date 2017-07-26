@@ -16,12 +16,12 @@ public:
     stack = other.stack;
     return *this;
    };
-  bool operator==(const Stack& other)  { return stack == other.stack; };
-  bool operator!=(const Stack& other)  { return stack != other.stack; };
+  bool operator==(const Stack& other) const { return stack == other.stack; };
+  bool operator!=(const Stack& other) const { return stack != other.stack; };
 
 public:
   // Traverses the stack, starting from top to bottom:
-  Iterator<T> GetIterator() { return stack.ForwardIterator(); }
+  Iterator<T> GetIterator() const { return stack.ForwardIterator(); }
 
 public:
   void Push(const T& data) { stack.PushFront(data); }
