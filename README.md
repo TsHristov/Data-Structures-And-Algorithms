@@ -8,6 +8,9 @@ Each has a README description with operations costs analysis.
   - `Priority-Queue` - Python implementation + Unit Tests
   - `Stack`
     - C++ implementation using `Dynamic-Array` + improvised Unit Tests
+    - C++ implementation using `Linked-List`   + improvised Unit Tests
+    - Python implementation using the built-in Python List class + Unit Tests
+    	
 
 
 # Resources: / I only used the books as a reference, I strived for my own implementations /
