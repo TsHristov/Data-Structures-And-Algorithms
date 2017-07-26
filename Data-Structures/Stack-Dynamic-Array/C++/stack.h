@@ -15,8 +15,11 @@ public:
     stack = other.stack;
     return *this;
    };
-  bool operator==(const Stack& other)  { return stack == other.stack; };
-  bool operator!=(const Stack& other)  { return stack != other.stack; };
+  bool operator==(const Stack& other) { return stack == other.stack; };
+  bool operator!=(const Stack& other) { return stack != other.stack; };
+
+public:
+  ReverseIterator<T> GetIterator() const { return stack.GetReverseIterator(); }
 
 public:
   void Push(const T& data) { stack.Append(data); }
