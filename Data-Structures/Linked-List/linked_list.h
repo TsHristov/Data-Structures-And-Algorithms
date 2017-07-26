@@ -1,7 +1,7 @@
 #pragma once
 #include "node.h"
 #include "exceptions.h"
-#include "list_iterator.h"
+#include "iterator.h"
 
 template<class T>
 class LinkedList
@@ -34,6 +34,21 @@ public:
   }
   T PopFront();
   size_t GetSize() const { return size; }
+
+public:
+  bool operator==(const LinkedList& other) const
+  {
+    if(this==&other) return true;
+    if(size != other.size) return false;
+    // Traverse the two linked list and check
+    // whether they have the same elements:
+    Iterator<T> i = this->ForwardIterator();
+    Iterator<T> j = other.ForwardIterator();
+    for(i,j; !i.End() && !j.End(); i.Next(), j.Next() )
+      if(i.Get() != j.Get()) return false;
+    return true;
+  }
+  bool operator!=(const LinkedList& other) const { return !(*this==other); }
 
 public:
   Iterator<T> ForwardIterator() const { return Iterator<T>(this->first); }

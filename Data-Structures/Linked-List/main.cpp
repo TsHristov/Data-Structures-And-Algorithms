@@ -50,7 +50,6 @@ void Test_CopyConstructor()
   {
     list.PushBack(i);
   }
-  list.Print();
   LinkedList<int> other(list);
   bool condition = true;
   for(int i = 0; i < 10; i++)
@@ -104,6 +103,23 @@ void Test_Iterator()
   std::cout << ((condition1 && condition2) ? "OK\n" : "NOK\n");
 }
 
+void Test_Compare()
+{
+  std::cout << "can compare two linked lists...";
+  LinkedList<int> first;
+  first.PushBack(1);
+  first.PushBack(2);
+  LinkedList<int> second;
+  second.PushBack(1);
+  second.PushBack(2);
+  bool condition1 = first == second;
+  bool condition2 = first == first;
+  second.PushBack(3);
+  bool condition3 = first != second;
+  bool condition = condition1 && condition2 && condition3;
+  std::cout << (condition ? "OK\n" : "NOK\n");
+}
+
 int main()
 {
   std::cout << "Class LinkedList: \n";
@@ -113,5 +129,6 @@ int main()
   Test_CopyConstructor();
   Test_OperatorEqual();
   Test_Iterator();
+  Test_Compare();
   return 0;
 }
