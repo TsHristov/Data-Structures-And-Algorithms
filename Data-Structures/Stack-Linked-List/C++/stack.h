@@ -20,6 +20,10 @@ public:
   bool operator!=(const Stack& other)  { return stack != other.stack; };
 
 public:
+  // Traverses the stack, starting from top to bottom:
+  Iterator<T> GetIterator() { return stack.ForwardIterator(); }
+
+public:
   void Push(const T& data) { stack.PushFront(data); }
   T Pop() { return stack.PopFront(); }
   T Top() const { return stack.First(); }

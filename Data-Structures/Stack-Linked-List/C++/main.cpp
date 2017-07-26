@@ -91,6 +91,20 @@ void Test_Compare()
   std::cout << (condition ? "OK\n" : "NOK\n");
 }
 
+void Test_Iterator()
+{
+  std::cout << "can iterate the stack...";
+  Stack<int> stack;
+  for(size_t i = 0; i < 10; i++) stack.Push(i);
+  bool condition = true;
+  Iterator<int> iterator = stack.GetIterator();
+  int j;
+  for(j = 9; !iterator.End() && j >= 0; iterator.Next(), j--)
+  {
+    if(iterator.Get() != j) condition = false;
+  }
+  std::cout << (condition ? "OK\n" : "NOK\n");
+}
 int main()
 {
   std::cout << "Class Stack: \n";
@@ -100,5 +114,6 @@ int main()
   Test_Pop();
   Test_GetSize();
   Test_GetTop();
+  Test_Iterator();
   return 0;
 }
