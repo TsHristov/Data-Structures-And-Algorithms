@@ -21,7 +21,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(self.test_list._last.data, 'a')
 
     def test_pop_front(self):
-        with self.assertRaises(linked_list.EmptyLinkedList):
+        with self.assertRaises(linked_list.EmptyList):
             self.test_list.pop_front()
         self.test_list.push_back('a')
         self.test_list.push_back('b')
@@ -29,24 +29,24 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(self.test_list.pop_front(), 'b')
 
     def test_get_first(self):
-        with self.assertRaises(linked_list.EmptyLinkedList):
+        with self.assertRaises(linked_list.EmptyList):
             self.test_list.first()
         self.test_list.push_back('a')
         self.test_list.push_back('b')
-        size = self.test_list.size()
+        size = len(self.test_list)
         self.assertEqual(self.test_list.first(), 'a')
         # Make sure no elements were removed from the list
-        self.assertEqual(size, self.test_list.size())
+        self.assertEqual(size, len(self.test_list))
 
     def test_get_last(self):
-        with self.assertRaises(linked_list.EmptyLinkedList):
+        with self.assertRaises(linked_list.EmptyList):
             self.test_list.last()
         self.test_list.push_back('a')
         self.test_list.push_back('b')
-        size = self.test_list.size()
+        size = len(self.test_list)
         self.assertEqual(self.test_list.last(), 'b')
         # Make sure no elements were removed from the list
-        self.assertEqual(size, self.test_list.size())
+        self.assertEqual(size, len(self.test_list))
 
     def test_check_empty(self):
         self.assertTrue(self.test_list.is_empty())

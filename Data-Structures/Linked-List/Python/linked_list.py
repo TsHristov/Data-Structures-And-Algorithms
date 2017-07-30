@@ -1,7 +1,7 @@
 import node
 
 
-class EmptyLinkedList(Exception):
+class EmptyList(Exception):
     pass
 
 
@@ -35,7 +35,7 @@ class LinkedList:
 
     def pop_front(self):
         if self.is_empty():
-            raise EmptyLinkedList
+            raise EmptyList
         else:
             data = self._first.data
             self._first = self._first.next
@@ -44,18 +44,18 @@ class LinkedList:
 
     def first(self):
         if self.is_empty():
-            raise EmptyLinkedList
+            raise EmptyList
         else:
             return self._first.data
 
     def last(self):
         if self.is_empty():
-            raise EmptyLinkedList
+            raise EmptyList
         else:
             return self._last.data
 
-    def size(self):
-        return self._size
-        
     def is_empty(self):
         return self._size == 0
+
+    def __len__(self):
+        return self._size
