@@ -1,15 +1,15 @@
 # Queue API:
 # C++:
 # Python:
- * `enqueue(data)`
+* `enqueue(data)`
   - `O(1)`
- * `dequeue()`
+* `dequeue()`
   - `O(1)`
- * `first()`
+* `first()`
   - `O(1)`
- * `last()`
+* `last()`
   - `O(1)`
- * `is_empty()`
+* `is_empty()`
   - `O(1)`
- * `__len__`
+* `__len__`
   - `O(1)`
