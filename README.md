@@ -4,13 +4,17 @@ Exercise repository in which I will strive to implement famous data structures a
 Each has a README description with operations costs analysis.
 * `Data-Structures`:
   - `Dynamic-Array`  - C++ implementation + improvised Unit Tests
-  - `Linked-List`    - C++ implementation + improvised Unit Tests
+  - `Linked-List`
+    - C++ implementation + improvised Unit Tests
+    - Python implementation + Unit Tests
   - `Priority-Queue` - Python implementation + Unit Tests
   - `Stack`
     - C++ implementation using `Dynamic-Array` + improvised Unit Tests
     - C++ implementation using `Linked-List`   + improvised Unit Tests
     - Python implementation using the built-in Python List class + Unit Tests
-    	
+  - `Queue`
+    - Python implementation using `Linked-List` + Unit Tests
+
 
 
 # Resources: / I only used the books as a reference, I strived for my own implementations /
