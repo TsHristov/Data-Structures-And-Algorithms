@@ -48,7 +48,7 @@ class TestLinkedList(unittest.TestCase):
         # Make sure no elements were removed from the list
         self.assertEqual(size, len(self.test_list))
 
-    def test_check_empty(self):
+    def test_is_empty(self):
         self.assertTrue(self.test_list.is_empty())
         self.test_list.push_back('a')
         self.assertFalse(self.test_list.is_empty())

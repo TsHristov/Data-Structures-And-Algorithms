@@ -1,6 +1,22 @@
 import node
 
 
+class ListIterator:
+    def __init__(self, start):
+        self._current = start
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if not self._current:
+            raise StopIteration
+        else:
+            current = self._current
+            self._current = self._current.next
+            return current
+
+
 class EmptyList(Exception):
     pass
 
@@ -56,6 +72,9 @@ class LinkedList:
 
     def is_empty(self):
         return self._size == 0
+
+    def __iter__(self):
+        return ListIterator(self._first)
 
     def __len__(self):
         return self._size
