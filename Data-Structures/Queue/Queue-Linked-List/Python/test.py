@@ -5,6 +5,7 @@ import queue
 class TestQueue(unittest.TestCase):
     def setUp(self):
         self.queue = queue.Queue()
+        self.other = queue.Queue()
 
     def test_enqueue(self):
         self.queue.enqueue('a')
@@ -50,6 +51,17 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(len(self.queue), 0)
         self.queue.enqueue('a')
         self.assertEqual(len(self.queue), 1)
+
+    def test_equal(self):
+        self.assertTrue(self.queue == self.queue)
+        self.assertTrue(self.queue == self.other)
+        self.queue.enqueue(1)
+        self.other.enqueue(1)
+        self.assertTrue(self.queue == self.other)
+
+    def test_not_equal(self):
+        self.queue.enqueue(1)
+        self.assertTrue(self.queue != self.other)
 
 if __name__ == "__main__":
     unittest.main()
