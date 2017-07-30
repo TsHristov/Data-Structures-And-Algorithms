@@ -1,9 +1,10 @@
 # Data-Structures-And-Algorithms
 
-Exercise repository in which I will strive to implement famous data structures and algorithms both in Python and C++.
-Each has a README description with operations costs analysis.
+Exercise repository with implementations of famous data structures and algorithms both in Python and C++.
+Each has a detailed description with operations costs analysis.
 * `Data-Structures`:
-  - `Dynamic-Array`  - C++ implementation + improvised Unit Tests
+  - `Dynamic-Array`
+    - C++ implementation + improvised Unit Tests
   - `Linked-List`
     - C++ implementation + improvised Unit Tests
     - Python implementation + Unit Tests
