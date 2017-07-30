@@ -55,4 +55,4 @@ class Queue:
         return QueueIterator(self._queue)
 
     def __len__(self):
-        return self._queue.size()
+        return len(self._queue)
