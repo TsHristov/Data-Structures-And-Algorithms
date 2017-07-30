@@ -73,6 +73,19 @@ class LinkedList:
     def is_empty(self):
         return self._size == 0
 
+    def __eq__(self, other):
+        if not type(other) is type(self):
+            return False
+        if len(self) != len(other):
+            return False
+        for node_self, node_other in zip(self, other):
+            if node_self != node_other:
+                return False
+        return True
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def __iter__(self):
         return ListIterator(self._first)
 
