@@ -13,3 +13,4 @@
 # Additional methods:
 * `operator==, operator!=` - compares two stack instances
   - `O(n)` - where n is the size of the stack
+* `ReverseIterator<T> GetIterator() const` - gets Iterator object over the stack, iterates starting from the top of the stack to the bottom

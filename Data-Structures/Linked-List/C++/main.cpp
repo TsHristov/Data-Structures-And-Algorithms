@@ -88,7 +88,7 @@ void Test_Iterator()
   bool condition1 = true;
   int j;
   Iterator<int> i = list.ForwardIterator();
-  for(i, j = 0; !i.End() && j<10; i.Next(), j++)
+  for(j = 0; !i.End() && j<10; i.Next(), j++)
   {
     if(i.Get() != j) condition1 = false;
   }

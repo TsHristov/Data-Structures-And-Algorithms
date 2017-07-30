@@ -105,6 +105,7 @@ void Test_Iterator()
   }
   std::cout << (condition ? "OK\n" : "NOK\n");
 }
+
 int main()
 {
   std::cout << "Class Stack: \n";

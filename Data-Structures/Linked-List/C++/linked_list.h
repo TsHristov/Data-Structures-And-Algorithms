@@ -44,7 +44,7 @@ public:
     // whether they have the same elements:
     Iterator<T> i = this->ForwardIterator();
     Iterator<T> j = other.ForwardIterator();
-    for(i,j; !i.End() && !j.End(); i.Next(), j.Next() )
+    for(; !i.End() && !j.End(); i.Next(), j.Next() )
       if(i.Get() != j.Get()) return false;
     return true;
   }
