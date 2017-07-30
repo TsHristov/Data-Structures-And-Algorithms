@@ -5,6 +5,7 @@ import stack
 class TestStack(unittest.TestCase):
     def setUp(self):
         self.stack = stack.Stack()
+        self.other = stack.Stack()
 
     def test_push(self):
         self.stack.push(1)
@@ -37,10 +38,16 @@ class TestStack(unittest.TestCase):
         self.assertEqual(len(self.stack), 2)
 
     def test_equal(self):
-        pass
+        self.assertTrue(self.stack == self.other)
+        self.stack.push(1)
+        self.stack.push(2)
+        self.other.push(1)
+        self.other.push(2)
+        self.assertTrue(self.stack == self.other)
 
     def test_not_equal(self):
-        pass
+        self.stack.push(1)
+        self.assertTrue(self.stack != self.other)
 
 if __name__ == "__main__":
     unittest.main()

@@ -35,10 +35,10 @@ class Stack:
         return self._stack.is_empty()
 
     def __eq__(self, other):
-        raise NotImplemented
+        return self._stack.__eq__(other._stack)
 
     def __ne__(self, other):
-        raise NotImplemented
+        return not self.__eq__(other)
 
     def __iter__(self):
         return StackIterator(self._stack._first)
