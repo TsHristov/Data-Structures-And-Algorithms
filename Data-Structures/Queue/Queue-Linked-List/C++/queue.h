@@ -1,4 +1,3 @@
-#include "iterator.h"
 #include "exceptions.h"
 #include "../../../Linked-List/C++/linked_list.h"
 
@@ -11,14 +10,19 @@ private:
 public:
   Queue(): queue() {};
   Queue(const Queue& other): queue(other.queue) {};
-  Queue& operator=(const Queue&);
+  Queue& operator=(const Queue& other)
+  {
+    if(this == &other) return *this;
+    queue = other.queue;
+    return *this;
+  }
 
 public:
-  bool operator==(const Queue&) const;
-  bool operator!=(const Queue&) const;
+  bool operator==(const Queue& other) const {return queue == other.queue;}
+  bool operator!=(const Queue& other) const {return queue != other.queue;}
 
 public:
-  QueueIterator<T> Iterator() const {return QueueIterator<T>(queue);};
+  Iterator<T> GetIterator() const { return queue.ForwardIterator(); }
 
 public:
   void Enqueue(const T& data);
