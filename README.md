@@ -8,13 +8,16 @@ Each has a detailed description with operations costs analysis.
   - `Linked-List`
     - C++ implementation + improvised Unit Tests
     - Python implementation + Unit Tests
-  - `Priority-Queue` - Python implementation + Unit Tests
+  - `Priority-Queue`
+    - Python implementation + Unit Tests
   - `Stack`
     - C++ implementation using `Dynamic-Array` + improvised Unit Tests
     - C++ implementation using `Linked-List`   + improvised Unit Tests
     - Python implementation using the built-in Python List class + Unit Tests
+    - Python implementation using `Linked-List` + Unit Tests
   - `Queue`
     - Python implementation using `Linked-List` + Unit Tests
+    - C++ implementation using 'Linked-List' + improvised Unit Tests
 
 
 
