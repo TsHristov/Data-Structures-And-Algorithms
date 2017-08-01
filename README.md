@@ -17,7 +17,7 @@ Each has a detailed description with operations costs analysis.
     - Python implementation using `Linked-List` + Unit Tests
   - `Queue`
     - Python implementation using `Linked-List` + Unit Tests
-    - C++ implementation using 'Linked-List' + improvised Unit Tests
+    - C++ implementation using `Linked-List` + improvised Unit Tests
 
 
 
