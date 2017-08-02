@@ -8,6 +8,8 @@ Each has a detailed description with operations costs analysis.
   - `Linked-List`
     - C++ implementation + improvised Unit Tests
     - Python implementation + Unit Tests
+  - `Doubly-Linked-List`
+    - Python implementation
   - `Priority-Queue`
     - Python implementation + Unit Tests
   - `Stack`
@@ -18,7 +20,8 @@ Each has a detailed description with operations costs analysis.
   - `Queue`
     - Python implementation using `Linked-List` + Unit Tests
     - C++ implementation using `Linked-List` + improvised Unit Tests
-
+  - `Deque`
+    - Python implementation using `Doubly-Linked-List` + Unit Tests
 
 
 # Resources: / I only used the books as a reference, I strived for my own implementations /

@@ -34,7 +34,7 @@ public:
   }
   T PopFront();
   size_t GetSize() const { return size; }
-
+  
 public:
   bool operator==(const LinkedList& other) const
   {
