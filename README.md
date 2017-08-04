@@ -9,7 +9,8 @@ Each has a detailed description with operations costs analysis.
     - C++ implementation + improvised Unit Tests
     - Python implementation + Unit Tests
   - `Doubly-Linked-List`
-    - Python implementation
+    - C++ implementation + improvised Unit Tests
+    - Python implementation + Unit Tests
   - `Priority-Queue`
     - Python implementation + Unit Tests
   - `Stack`
