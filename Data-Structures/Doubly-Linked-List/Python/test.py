@@ -43,7 +43,17 @@ class TestDoublyLinkedList(unittest.TestCase):
         self.list.insert_first('c')
         self.list.insert_first('b')
         self.list.insert_first('a')
-        for node, value in zip(self.list, ['a','b','c']):
+        for node, value in zip(self.list, ['a', 'b', 'c']):
+            self.assertEqual(node, value)
+
+    def test_reverse_iterator(self):
+        with self.assertRaises(StopIteration):
+            i = reversed(self.list)
+            next(i)
+        self.list.insert_first('c')
+        self.list.insert_first('b')
+        self.list.insert_first('a')
+        for node, value in zip(reversed(self.list), ['c', 'b', 'a']):
             self.assertEqual(node, value)
 
 if __name__ == "__main__":

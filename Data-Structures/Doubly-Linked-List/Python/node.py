@@ -8,7 +8,7 @@ class Node:
         self._next = _next
 
     def is_trailer(self):
-        return self._data == self._next == None
+        return self._data is self._next is None
 
     def is_header(self):
-        return self._data == self._previous == None
+        return self._data is self._previous is None

@@ -54,7 +54,11 @@ class DoublyLinkedList:
 
     def __iter__(self):
         first = self._header._next
-        return iterator.Iterator(first)
+        return iterator.Iterator(first, None)
+
+    def __reversed__(self):
+        last = self._trailer._previous
+        return iterator.Iterator(None, last)
 
     def __len__(self):
         return self._size
