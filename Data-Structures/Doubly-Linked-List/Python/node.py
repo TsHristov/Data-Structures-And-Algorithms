@@ -6,3 +6,9 @@ class Node:
         self._data = _data
         self._previous = _previous
         self._next = _next
+
+    def is_trailer(self):
+        return self._data == self._next == None
+
+    def is_header(self):
+        return self._data == self._previous == None

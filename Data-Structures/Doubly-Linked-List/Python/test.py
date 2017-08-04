@@ -36,5 +36,15 @@ class TestDoublyLinkedList(unittest.TestCase):
         self.list.insert_last('b')
         self.assertEqual(self.list.last(), 'b')
 
+    def test_forward_iterator(self):
+        with self.assertRaises(StopIteration):
+            i = iter(self.list)
+            next(i)
+        self.list.insert_first('c')
+        self.list.insert_first('b')
+        self.list.insert_first('a')
+        for node, value in zip(self.list, ['a','b','c']):
+            self.assertEqual(node, value)
+
 if __name__ == "__main__":
     unittest.main()

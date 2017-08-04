@@ -1,4 +1,5 @@
 import node
+import iterator
 
 
 class EmptyList(Exception):
@@ -50,6 +51,10 @@ class DoublyLinkedList:
 
     def is_empty(self):
         return self._size == 0
+
+    def __iter__(self):
+        first = self._header._next
+        return iterator.Iterator(first)
 
     def __len__(self):
         return self._size
