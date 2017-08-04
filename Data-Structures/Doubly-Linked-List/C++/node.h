@@ -11,10 +11,12 @@ private:
 
 public:
   Node(): next(NULL), previous(NULL) {}
-  Node(const T& d, Node<T> * n, Node<T> * p):
-    data(d),
-    next(n),
-    previous(p) {}
+  Node(const T& data, Node<T> * previous, Node<T> * next)
+  {
+    this->data = data;
+    this->previous = previous;
+    this->next = next;
+  }
 
 public:
   T GetData() const { return data; }

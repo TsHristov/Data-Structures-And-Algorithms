@@ -15,8 +15,8 @@ private:
 public:
   DoublyLinkedList()
   {
-    header  = new Node<T>();
-    trailer = new Node<T>();
+    header  = new Node<T>;
+    trailer = new Node<T>;
     header->SetNext(trailer);
     trailer->SetPrevious(header);
     size = 0;
@@ -47,14 +47,10 @@ public:
 template<class T>
 void DoublyLinkedList<T>::InsertBetween(const T& data, Node<T> * predecessor, Node<T> *  successor)
 {
-  if(Empty()) throw EmptyList();
-  else
-  {
-    Node<T> * new_node = new Node<T>(data, predecessor, successor);
-    predecessor->SetNext(new_node);
-    successor->SetPrevious(new_node);
-    ++size;
-  }
+  Node<T> * new_node = new Node<T>(data, predecessor, successor);
+  predecessor->SetNext(new_node);
+  successor->SetPrevious(new_node);
+  ++size;
 }
 
 template<class T>
@@ -79,22 +75,13 @@ T DoublyLinkedList<T>::DeleteNode(Node<T> * node)
 template<class T>
 void DoublyLinkedList<T>::InsertFirst(const T& data)
 {
-  Node<T> * node = new Node<T>(data, NULL, NULL);
-  Node<T> * next = header->GetNext();
-  header->SetNext(node);
-  node->SetNext(next);
-  ++size;
+  InsertBetween(data, header, header->GetNext());
 }
-
 
 template<class T>
 void DoublyLinkedList<T>::InsertLast(const T& data)
 {
-  Node<T> * node = new Node<T>(data, NULL, NULL);
-  Node<T> * previous = trailer->GetPrevious();
-  node->SetPrevious(previous);
-  node->SetNext(trailer);
-  ++size;
+  InsertBetween(data, trailer->GetPrevious(), trailer);
 }
 
 template<class T>
