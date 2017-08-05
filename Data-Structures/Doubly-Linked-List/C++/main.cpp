@@ -24,10 +24,33 @@ void Test_InsertLast()
   std::cout << (condition ? "OK\n" : "NOK\n");
 }
 
+void Test_ForwardIterator()
+{
+  std::cout << "can iterate the list in forward direction...";
+  DoublyLinkedList<int> list;
+  list.InsertLast(0);
+  list.InsertLast(1);
+  list.InsertLast(2);
+  list.InsertLast(3);
+  bool condition = true;
+  Iterator<int> i = list.ForwardIterator();
+  int j = 0;
+  for(;!i.End() && j < 4;i.Next(), j++)
+  {
+    if(i.Get() != j)
+    {
+      std::cout << i.Get() << "-" << j << "\n";
+      condition = false;
+    }
+  }
+  std::cout << (condition ? "OK\n" : "NOK\n");
+}
+
 int main()
 {
   std::cout << "Class DoublyLinkedList:\n";
   Test_InsertFirst();
   Test_InsertLast();
+  Test_ForwardIterator();
   return 0;
 }

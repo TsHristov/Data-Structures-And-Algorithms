@@ -1,6 +1,7 @@
 #pragma once
 #include "exceptions.h"
 #include "node.h"
+#include "iterator.h"
 
 template<class T>
 class DoublyLinkedList
@@ -34,14 +35,23 @@ public:
   }
 
 public:
+  Iterator<T> ForwardIterator() const
+  {
+    Node<T> * start = header->GetNext();
+    Node<T> * end   = trailer->GetPrevious();
+    return Iterator<T>(start, end);
+  }
+  // Iterator<T>& ReverseIterator() const {return Iterator<T>(header);}
+
+public:
   void InsertBetween(const T&, Node<T> *, Node<T> *);
   void InsertFirst(const T&);
   void InsertLast(const T&);
   T DeleteNode(Node<T> *);
   T First() const;
   T Last() const;
-  bool Empty() const { return size == 0; }
-  size_t GetSize() const { return size; }
+  bool Empty() const {return size == 0;}
+  size_t GetSize() const {return size;}
 };
 
 template<class T>
@@ -70,7 +80,6 @@ T DoublyLinkedList<T>::DeleteNode(Node<T> * node)
     return data;
   }
 }
-
 
 template<class T>
 void DoublyLinkedList<T>::InsertFirst(const T& data)
