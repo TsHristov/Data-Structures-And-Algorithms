@@ -24,8 +24,4 @@ public:
   Node<T> * GetNext() const { return this->next; }
   void SetNext(Node<T> * other) { this->next = other; }
   void SetPrevious(Node<T> * other) { this->previous = other; }
-
-public:
-  bool IsHeader() const { return this->previous == NULL; }
-  bool IsTrailer() const { return this->next == NULL; }
 };

@@ -37,11 +37,25 @@ void Test_ForwardIterator()
   int j = 0;
   for(;!i.End() && j < 4;i.Next(), j++)
   {
-    if(i.Get() != j)
-    {
-      std::cout << i.Get() << "-" << j << "\n";
-      condition = false;
-    }
+    if(i.Get() != j) condition = false;
+  }
+  std::cout << (condition ? "OK\n" : "NOK\n");
+}
+
+void Test_ReverseIterator()
+{
+  std::cout << "can iterate the list in reverse direction...";
+  DoublyLinkedList<int> list;
+  list.InsertLast(0);
+  list.InsertLast(1);
+  list.InsertLast(2);
+  list.InsertLast(3);
+  bool condition = true;
+  Iterator<int> i = list.ReverseIterator();
+  int j = 3;
+  for(;!i.End() && j >=0;i.Next(), j--)
+  {
+    if(i.Get() != j) condition = false;
   }
   std::cout << (condition ? "OK\n" : "NOK\n");
 }
@@ -52,5 +66,6 @@ int main()
   Test_InsertFirst();
   Test_InsertLast();
   Test_ForwardIterator();
+  Test_ReverseIterator();
   return 0;
 }

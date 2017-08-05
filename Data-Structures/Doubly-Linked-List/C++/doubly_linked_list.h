@@ -41,6 +41,12 @@ public:
     Node<T> * end   = trailer->GetPrevious();
     return Iterator<T>(start, end);
   }
+  Iterator<T> ReverseIterator() const
+  {
+    Node<T> * start = header->GetNext();
+    Node<T> * end   = trailer->GetPrevious();
+    return Iterator<T>(start, end, true);
+  }
   // Iterator<T>& ReverseIterator() const {return Iterator<T>(header);}
 
 public:
