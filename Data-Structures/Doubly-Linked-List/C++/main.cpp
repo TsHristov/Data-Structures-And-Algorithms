@@ -60,6 +60,36 @@ void Test_ReverseIterator()
   std::cout << (condition ? "OK\n" : "NOK\n");
 }
 
+void Test_CopyFromOther()
+{
+  std::cout << "can create an list from another one...";
+  DoublyLinkedList<int> list;
+  list.InsertLast(0);
+  list.InsertLast(1);
+  DoublyLinkedList<int> other(list);
+  bool condition = other.First() == 0 && other.Last() == 1;
+  std::cout << (condition ? "OK\n" : "NOK\n");
+}
+
+void Test_Compare()
+{
+  std::cout << "can compare two lists...";
+  DoublyLinkedList<int> first;
+  first.InsertLast(0);
+  first.InsertLast(1);
+  bool condition1 = first == first;
+  DoublyLinkedList<int> second;
+  second.InsertLast(0);
+  second.InsertLast(1);
+  bool condition2 = first == second;
+  second.InsertLast(2);
+  bool condition3 = first != second;
+  // bool condition = condition1 && condition2;
+  bool condition = condition3;
+
+  std::cout << (condition ? "OK\n" : "NOK\n");
+}
+
 int main()
 {
   std::cout << "Class DoublyLinkedList:\n";
@@ -67,5 +97,7 @@ int main()
   Test_InsertLast();
   Test_ForwardIterator();
   Test_ReverseIterator();
+  Test_Compare();
+  // Test_CopyFromOther();
   return 0;
 }

@@ -14,25 +14,14 @@ private:
   size_t size;
 
 public:
-  DoublyLinkedList()
-  {
-    header  = new Node<T>;
-    trailer = new Node<T>;
-    header->SetNext(trailer);
-    trailer->SetPrevious(header);
-    size = 0;
-  }
-  ~DoublyLinkedList()
-  {
-    Node<T> * current = header;
-    Node<T> * next = header;
-    while(next)
-    {
-      next = current->GetNext();
-      delete current;
-      current = next;
-    }
-  }
+  DoublyLinkedList() {Initialize();}
+  DoublyLinkedList(const DoublyLinkedList&);
+  ~DoublyLinkedList() {Free();}
+  DoublyLinkedList& operator=(const DoublyLinkedList&);
+
+public:
+  bool operator==(const DoublyLinkedList&) const;
+  bool operator!=(const DoublyLinkedList&) const;
 
 public:
   Iterator<T> ForwardIterator() const
@@ -47,7 +36,6 @@ public:
     Node<T> * end   = trailer->GetPrevious();
     return Iterator<T>(start, end, true);
   }
-  // Iterator<T>& ReverseIterator() const {return Iterator<T>(header);}
 
 public:
   void InsertBetween(const T&, Node<T> *, Node<T> *);
@@ -58,7 +46,97 @@ public:
   T Last() const;
   bool Empty() const {return size == 0;}
   size_t GetSize() const {return size;}
+
+private:
+  void Initialize();
+  DoublyLinkedList& CopyFrom(const DoublyLinkedList&);
+  void Free();
 };
+
+template<class T>
+void DoublyLinkedList<T>::Initialize()
+{
+  header  = new Node<T>;
+  trailer = new Node<T>;
+  header->SetNext(trailer);
+  trailer->SetPrevious(header);
+  size = 0;
+}
+
+template<class T>
+DoublyLinkedList<T>& DoublyLinkedList<T>::CopyFrom(const DoublyLinkedList& other)
+{
+  if(this == &other) return *this;
+  else
+  {
+    for(Iterator<T> i = other.ForwardIterator(); !i.End(); i.Next())
+    {
+      T data = i.Get();
+      InsertLast(data);
+    }
+    return *this;
+  }
+}
+
+template<class T>
+void DoublyLinkedList<T>::Free()
+{
+  Node<T> * current = header;
+  Node<T> * next = header;
+  while(next)
+  {
+    next = current->GetNext();
+    delete current;
+    current = next;
+  }
+}
+
+template<class T>
+DoublyLinkedList<T>::DoublyLinkedList(const DoublyLinkedList& other)
+{
+  Initialize();
+  CopyFrom(other);
+}
+
+template<class T>
+DoublyLinkedList<T>& DoublyLinkedList<T>::operator=(const DoublyLinkedList& other)
+{
+  if(this == &other) return *this;
+  else
+  {
+    Free();
+    Initialize();
+    CopyFrom(other);
+    return *this;
+  }
+}
+
+template<class T>
+bool DoublyLinkedList<T>::operator==(const DoublyLinkedList& other) const
+{
+  if(this==&other) return true;
+  else
+  {
+    bool condition = true;
+    Iterator<int> i = this->ForwardIterator();
+    Iterator<int> j = other.ForwardIterator();
+    for(; !i.End() && !j.End(); i.Next())
+    {
+      if(i.Get() != j.Get())
+      {
+        condition = false;
+        break;
+      }
+    }
+    return condition;
+  }
+}
+
+template<class T>
+bool DoublyLinkedList<T>::operator!=(const DoublyLinkedList& other) const
+{
+  return !(*this==other);
+}
 
 template<class T>
 void DoublyLinkedList<T>::InsertBetween(const T& data, Node<T> * predecessor, Node<T> *  successor)
