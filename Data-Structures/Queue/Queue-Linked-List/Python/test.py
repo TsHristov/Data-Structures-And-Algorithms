@@ -9,15 +9,15 @@ class TestQueue(unittest.TestCase):
 
     def test_enqueue(self):
         self.queue.enqueue('a')
-        first = self.queue._queue._first
-        last = self.queue._queue._last
+        first = self.queue._first
+        last = self.queue._last
         self.assertTrue(first == last)
         self.queue.enqueue('b')
         self.assertEqual(self.queue.first(), 'a')
         self.assertEqual(self.queue.last(), 'b')
 
     def test_dequeue(self):
-        with self.assertRaises(queue.EmptyQueue):
+        with self.assertRaises(queue.Empty):
             self.queue.dequeue()
         self.queue.enqueue('a')
         self.queue.enqueue('b')
@@ -25,7 +25,7 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(self.queue.dequeue(), 'b')
 
     def test_get_first(self):
-        with self.assertRaises(queue.EmptyQueue):
+        with self.assertRaises(queue.Empty):
             self.queue.first()
         self.queue.enqueue('a')
         self.queue.enqueue('b')
@@ -34,7 +34,7 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(len(self.queue), size)
 
     def test_get_last(self):
-        with self.assertRaises(queue.EmptyQueue):
+        with self.assertRaises(queue.Empty):
             self.queue.last()
         self.queue.enqueue('a')
         self.queue.enqueue('b')
