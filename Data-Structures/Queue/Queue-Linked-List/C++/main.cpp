@@ -20,7 +20,7 @@ void Test_Dequeue()
   try
   {
     queue.Dequeue();
-  }catch(EmptyQueue& e)
+  }catch(EmptyList& e)
   {
     condition1 = true;
   }
@@ -42,7 +42,7 @@ void Test_GetFirst()
   try
   {
     queue.First();
-  }catch(EmptyQueue& e)
+  }catch(EmptyList& e)
   {
     condtion1 = true;
   }
@@ -63,7 +63,7 @@ void Test_GetLast()
   try
   {
     queue.Last();
-  }catch(EmptyQueue& e)
+  }catch(EmptyList& e)
   {
     condtion1 = true;
   }
