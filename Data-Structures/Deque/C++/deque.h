@@ -5,6 +5,20 @@ template<class T>
 class Deque: public DoublyLinkedList<T>
 {
 public:
-  T& DeleteFirst();
-  T& DeleteLast();
+  T DeleteFirst();
+  T DeleteLast();
 };
+
+template<class T>
+T Deque<T>::DeleteFirst()
+{
+  Node<T> * first = this->header->GetNext();
+  return this->DeleteNode(first);
+}
+
+template<class T>
+T Deque<T>::DeleteLast()
+{
+  Node<T> * last = this->trailer->GetPrevious();
+  return this->DeleteNode(last);
+}

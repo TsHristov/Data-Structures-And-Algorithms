@@ -1,13 +1,13 @@
 # Deque API: C++ / Python
-* / `insert_first(data)` - add an element to the front of the deque
+* `void InsertFirst(const T&)`/ `insert_first(data)` - add an element to the front of the deque
   - `O(1)`
-* / `insert_last(data)` - add an element to the back of the deque
+* `void InsertLast(const T&)`/ `insert_last(data)` - add an element to the back of the deque
   - `O(1)`
-* / `delete_first()` - remove and return the first element of the deque
+* `T DeleteFirst()`/ `delete_first()` - remove and return the first element of the deque
   - `O(1)`
-* / `delete_last()` - remove and return the last element of the deque
+* `T DeleteLast()`/ `delete_last()` - remove and return the last element of the deque
   - `O(1)`
-* / `first()` - return the first element of the deque
+* `T First() const`/ `first()` - return the first element of the deque
   - `O(1)`
-* / `last()` - return the last element of the deque
+* `T Last() const`/ `last()` - return the last element of the deque
   - `O(1)`
