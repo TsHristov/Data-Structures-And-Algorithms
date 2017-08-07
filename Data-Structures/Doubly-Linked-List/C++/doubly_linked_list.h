@@ -6,7 +6,7 @@
 template<class T>
 class DoublyLinkedList
 {
-private:
+protected:
   // Sentinel nodes, mark the head
   // and the tail of the list
   Node<T> * header;

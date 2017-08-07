@@ -4,8 +4,6 @@ from linked_list import Empty, Iterator, LinkedList
 
 
 class Queue(LinkedList):
-    def __init__(self):
-        super().__init__()
 
     def enqueue(self, data):
         self.push_back(data)
