@@ -20,7 +20,7 @@ class TestDeque(unittest.TestCase):
         self.assertEqual(self.deque._trailer._previous._data, 'b')
 
     def test_delete_first(self):
-        with self.assertRaises(deque.EmptyDeque):
+        with self.assertRaises(deque.Empty):
             self.deque.delete_first()
         self.deque.insert_first('a')
         self.deque.insert_first('b')
@@ -28,7 +28,7 @@ class TestDeque(unittest.TestCase):
         self.assertEqual(self.deque.delete_first(), 'a')
 
     def test_delete_last(self):
-        with self.assertRaises(deque.EmptyDeque):
+        with self.assertRaises(deque.Empty):
             self.deque.delete_last()
         self.deque.insert_first('b')
         self.deque.insert_first('a')
@@ -36,7 +36,7 @@ class TestDeque(unittest.TestCase):
         self.assertEqual(self.deque.delete_last(), 'a')
 
     def test_get_first(self):
-        with self.assertRaises(deque.EmptyDeque):
+        with self.assertRaises(deque.Empty):
             self.deque.first()
         self.deque.insert_first('b')
         self.deque.insert_first('a')
@@ -45,7 +45,7 @@ class TestDeque(unittest.TestCase):
         self.assertEqual(len(self.deque), size)
 
     def test_get_last(self):
-        with self.assertRaises(deque.EmptyDeque):
+        with self.assertRaises(deque.Empty):
             self.deque.last()
         self.deque.insert_first('b')
         self.deque.insert_first('a')
