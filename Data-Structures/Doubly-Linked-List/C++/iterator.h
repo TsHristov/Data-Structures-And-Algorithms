@@ -6,27 +6,28 @@ class Iterator
 {
 private:
   Node<T> * start;
-  Node<T> * end;
   bool reverse;
 
 public:
-  Iterator(Node<T> * start, Node<T> * end, bool reverse=false)
+  Iterator(Node<T> * start, bool reverse=false)
   {
     this->start = start;
-    this->end   = end;
     this->reverse = reverse;
   }
 
 public:
-  bool End() const {return start == end;}
+  bool End() const
+  {
+    if(!reverse) return start->GetNext() == NULL;
+    else return start->GetPrevious() == NULL;
+  }
   void Next()
   {
     if (!reverse) start = start->GetNext();
-    else if(reverse) end = end->GetPrevious();
+    else start = start->GetPrevious();
   }
   T& Get() const
   {
-    if(!reverse) return start->GetData();
-    else if(reverse) return end->GetData();
+    return start->GetData();
   }
 };

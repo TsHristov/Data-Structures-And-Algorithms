@@ -27,14 +27,12 @@ public:
   Iterator<T> ForwardIterator() const
   {
     Node<T> * start = header->GetNext();
-    Node<T> * end   = trailer->GetPrevious();
-    return Iterator<T>(start, end);
+    return Iterator<T>(start);
   }
   Iterator<T> ReverseIterator() const
   {
-    Node<T> * start = header->GetNext();
     Node<T> * end   = trailer->GetPrevious();
-    return Iterator<T>(start, end, true);
+    return Iterator<T>(end, true); // reverse = true
   }
 
 public:
@@ -69,10 +67,11 @@ DoublyLinkedList<T>& DoublyLinkedList<T>::CopyFrom(const DoublyLinkedList& other
   if(this == &other) return *this;
   else
   {
-    for(Iterator<T> i = other.ForwardIterator(); !i.End(); i.Next())
+    Iterator<T> i = other.ForwardIterator();
+    for(; !i.End(); i.Next())
     {
       T data = i.Get();
-      InsertLast(data);
+      this->InsertLast(data);
     }
     return *this;
   }
@@ -115,20 +114,16 @@ template<class T>
 bool DoublyLinkedList<T>::operator==(const DoublyLinkedList& other) const
 {
   if(this==&other) return true;
+  if(size != other.size) return false;
   else
   {
-    bool condition = true;
     Iterator<int> i = this->ForwardIterator();
     Iterator<int> j = other.ForwardIterator();
-    for(; !i.End() && !j.End(); i.Next())
+    for(; !i.End() && !j.End(); i.Next(), j.Next())
     {
-      if(i.Get() != j.Get())
-      {
-        condition = false;
-        break;
-      }
+      if(i.Get() != j.Get()) return false;
     }
-    return condition;
+    return true;
   }
 }
 

@@ -6,7 +6,7 @@ CFLAGS = -Wall -c $(DEBUG)
 all : $(OBJS)
 	$(CC) $(OBJS) -o doubly_linked_list
 
-main.o : main.cpp doubly_linked_list.h
+main.o : main.cpp doubly_linked_list.h iterator.h
 	$(CC) $(CFLAGS) main.cpp
 
 clean :

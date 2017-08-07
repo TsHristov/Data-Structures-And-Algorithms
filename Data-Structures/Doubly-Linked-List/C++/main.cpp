@@ -60,17 +60,6 @@ void Test_ReverseIterator()
   std::cout << (condition ? "OK\n" : "NOK\n");
 }
 
-void Test_CopyFromOther()
-{
-  std::cout << "can create an list from another one...";
-  DoublyLinkedList<int> list;
-  list.InsertLast(0);
-  list.InsertLast(1);
-  DoublyLinkedList<int> other(list);
-  bool condition = other.First() == 0 && other.Last() == 1;
-  std::cout << (condition ? "OK\n" : "NOK\n");
-}
-
 void Test_Compare()
 {
   std::cout << "can compare two lists...";
@@ -84,9 +73,31 @@ void Test_Compare()
   bool condition2 = first == second;
   second.InsertLast(2);
   bool condition3 = first != second;
-  // bool condition = condition1 && condition2;
-  bool condition = condition3;
+  bool condition = condition1 && condition2 && condition3;
+  std::cout << (condition ? "OK\n" : "NOK\n");
+}
 
+void Test_CopyFromOther()
+{
+  std::cout << "can create an list from another one...";
+  DoublyLinkedList<int> list;
+  list.InsertLast(0);
+  list.InsertLast(1);
+  DoublyLinkedList<int> other(list);
+  bool condition = other.First() == 0 && other.Last() == 1;
+  std::cout << (condition ? "OK\n" : "NOK\n");
+}
+
+void Test_OperatorEqual()
+{
+  std::cout << "can create an list from another one using operator==...";
+  DoublyLinkedList<int> list;
+  list.InsertLast(0);
+  list.InsertLast(1);
+  DoublyLinkedList<int> other;
+  other.InsertFirst(2);
+  other = list;
+  bool condition = other.First() == 0 && other.Last() == 1;
   std::cout << (condition ? "OK\n" : "NOK\n");
 }
 
@@ -98,6 +109,7 @@ int main()
   Test_ForwardIterator();
   Test_ReverseIterator();
   Test_Compare();
-  // Test_CopyFromOther();
+  Test_CopyFromOther();
+  Test_OperatorEqual();
   return 0;
 }
