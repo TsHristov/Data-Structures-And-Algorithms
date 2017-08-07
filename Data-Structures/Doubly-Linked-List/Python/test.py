@@ -23,14 +23,14 @@ class TestDoublyLinkedList(unittest.TestCase):
         self.assertEqual(last, 'b')
 
     def test_get_first(self):
-        with self.assertRaises(doubly_linked_list.EmptyList):
+        with self.assertRaises(doubly_linked_list.Empty):
             self.list.first()
         self.list.insert_first('a')
         self.list.insert_last('b')
         self.assertEqual(self.list.first(), 'a')
 
     def test_get_last(self):
-        with self.assertRaises(doubly_linked_list.EmptyList):
+        with self.assertRaises(doubly_linked_list.Empty):
             self.list.last()
         self.list.insert_first('a')
         self.list.insert_last('b')

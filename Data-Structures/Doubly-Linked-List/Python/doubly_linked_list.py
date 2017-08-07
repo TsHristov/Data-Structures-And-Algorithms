@@ -2,7 +2,7 @@ import node
 import iterator
 
 
-class EmptyList(Exception):
+class Empty(Exception):
     pass
 
 
@@ -23,7 +23,7 @@ class DoublyLinkedList:
 
     def delete_node(self, node):
         if self.is_empty():
-            raise EmptyList
+            raise Empty
         predecessor = node._previous
         successor = node._next
         predecessor._next = successor
@@ -41,12 +41,12 @@ class DoublyLinkedList:
 
     def first(self):
         if self.is_empty():
-            raise EmptyList
+            raise Empty
         return self._header._next._data
 
     def last(self):
         if self.is_empty():
-            raise EmptyList
+            raise Empty
         return self._trailer._previous._data
 
     def is_empty(self):
