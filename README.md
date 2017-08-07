@@ -23,6 +23,7 @@ Each has a detailed description with operations costs analysis.
     - C++ implementation using `Linked-List` + improvised Unit Tests
   - `Deque`
     - Python implementation using `Doubly-Linked-List` + Unit Tests
+    - C++ implementation using `Doubly-Linked-List` + improvised Unit Tests
 
 
 # Resources: / I only used the books as a reference, I strived for my own implementations /
