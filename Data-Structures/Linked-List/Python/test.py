@@ -22,7 +22,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(self.list._last.data, 'a')
 
     def test_pop_front(self):
-        with self.assertRaises(linked_list.EmptyList):
+        with self.assertRaises(linked_list.Empty):
             self.list.pop_front()
         self.list.push_back('a')
         self.list.push_back('b')
@@ -30,7 +30,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(self.list.pop_front(), 'b')
 
     def test_get_first(self):
-        with self.assertRaises(linked_list.EmptyList):
+        with self.assertRaises(linked_list.Empty):
             self.list.first()
         self.list.push_back('a')
         self.list.push_back('b')
@@ -40,7 +40,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(size, len(self.list))
 
     def test_get_last(self):
-        with self.assertRaises(linked_list.EmptyList):
+        with self.assertRaises(linked_list.Empty):
             self.list.last()
         self.list.push_back('a')
         self.list.push_back('b')
@@ -59,7 +59,7 @@ class TestLinkedList(unittest.TestCase):
     def test_not_equal(self):
         self.list.push_back('a')
         self.assertTrue(self.list != self.other)
-        
+
     def test_is_empty(self):
         self.assertTrue(self.list.is_empty())
         self.list.push_back('a')

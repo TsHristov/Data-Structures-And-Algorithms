@@ -1,7 +1,7 @@
 import node
 
 
-class ListIterator:
+class Iterator:
     def __init__(self, start):
         self._current = start
 
@@ -17,7 +17,7 @@ class ListIterator:
             return current
 
 
-class EmptyList(Exception):
+class Empty(Exception):
     pass
 
 
@@ -51,7 +51,7 @@ class LinkedList:
 
     def pop_front(self):
         if self.is_empty():
-            raise EmptyList
+            raise Empty
         else:
             data = self._first.data
             self._first = self._first.next
@@ -60,13 +60,13 @@ class LinkedList:
 
     def first(self):
         if self.is_empty():
-            raise EmptyList
+            raise Empty
         else:
             return self._first.data
 
     def last(self):
         if self.is_empty():
-            raise EmptyList
+            raise Empty
         else:
             return self._last.data
 
@@ -87,7 +87,7 @@ class LinkedList:
         return not self.__eq__(other)
 
     def __iter__(self):
-        return ListIterator(self._first)
+        return Iterator(self._first)
 
     def __len__(self):
         return self._size
