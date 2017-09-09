@@ -20,12 +20,13 @@ Each has a detailed description with operations costs analysis.
     - Python implementation using `Linked-List` + Unit Tests
   - `Queue`
     - Python implementation using `Linked-List` + Unit Tests
+    - Python implementation using `Circular-Array` + Unit Tests
     - C++ implementation using `Linked-List` + improvised Unit Tests
   - `Deque`
     - Python implementation using `Doubly-Linked-List` + Unit Tests
     - C++ implementation using `Doubly-Linked-List` + improvised Unit Tests
 
 
-# Resources: / I only used the books as a reference, I strived for my own implementations /
+# Resources:
 * `Algorithms, Fourth Edition by Robert Sedgewick`
 * `Data Structures And Algorithms In Python by Michael T. Goodrich`
