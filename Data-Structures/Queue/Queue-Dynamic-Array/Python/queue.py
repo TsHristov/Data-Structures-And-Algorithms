@@ -2,8 +2,26 @@ class Empty(Exception):
     pass
 
 
+class Iterator:
+    """Iterator object for the Queue data structure."""
+
+    def __init__(self, data):
+        self._data  = data
+        self._front = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if not self._data[self._front]:
+            raise StopIteration
+        element = self._data[self._front]
+        self._front = (self._front + 1) % len(self._data)
+        return element
+
+
 class Queue:
-    """ Queue implementation using circular array """
+    """Queue implementation using circular array."""
 
     DEFAULT_CAPACITY = 10
 
@@ -56,3 +74,7 @@ class Queue:
     def __len__(self):
         """Return count of elements in the queue."""
         return self._size
+
+    def __iter__(self):
+        """Return iterator object for the queue."""
+        return Iterator(self._data)

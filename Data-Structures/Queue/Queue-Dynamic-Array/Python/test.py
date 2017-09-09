@@ -37,5 +37,23 @@ class TestQueue(unittest.TestCase):
         self.queue.enqueue('a')
         self.assertEqual(len(self.queue), 1)
 
+class TestQueueIterator(unittest.TestCase):
+    def setUp(self):
+        self.queue = queue.Queue()
+
+    def test_get_next(self):
+        self.queue.enqueue('a')
+        self.queue.enqueue('b')
+        self.queue.enqueue('c')
+        i = iter(self.queue)
+        self.assertEqual(next(i), 'a')
+        self.assertEqual(next(i), 'b')
+        self.assertEqual(next(i), 'c')
+
+    def test_raises_stopiteration(self):
+        with self.assertRaises(StopIteration):
+            i = iter(self.queue)
+            next(i)
+
 if __name__ == "__main__":
     unittest.main()
