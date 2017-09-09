@@ -25,18 +25,7 @@ class TestQueue(unittest.TestCase):
             self.queue.first()
         self.queue.enqueue('a')
         self.queue.enqueue('b')
-        size = len(self.queue)
         self.assertEqual(self.queue.first(), 'a')
-        self.assertEqual(len(self.queue), size)
-
-    # def test_get_last(self):
-    #     with self.assertRaises(queue.Empty):
-    #         self.queue.last()
-    #     self.queue.enqueue('a')
-    #     self.queue.enqueue('b')
-    #     size = len(self.queue)
-    #     self.assertEqual(self.queue.last(), 'b')
-    #     self.assertEqual(len(self.queue), size)
 
     def test_is_empty(self):
         self.assertTrue(self.queue.is_empty())
@@ -47,17 +36,6 @@ class TestQueue(unittest.TestCase):
         self.assertEqual(len(self.queue), 0)
         self.queue.enqueue('a')
         self.assertEqual(len(self.queue), 1)
-
-    # def test_equal(self):
-    #     self.assertTrue(self.queue == self.queue)
-    #     self.assertTrue(self.queue == self.other)
-    #     self.queue.enqueue(1)
-    #     self.other.enqueue(1)
-    #     self.assertTrue(self.queue == self.other)
-    #
-    # def test_not_equal(self):
-    #     self.queue.enqueue(1)
-    #     self.assertTrue(self.queue != self.other)
 
 if __name__ == "__main__":
     unittest.main()
