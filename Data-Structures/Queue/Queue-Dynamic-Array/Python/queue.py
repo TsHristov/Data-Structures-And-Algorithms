@@ -68,7 +68,7 @@ class Queue:
         front = self._front
         for i in range(self._size):
             self._data[i] = old_list[front]
-            front = (front + 1) % len(self._data)
+            front = (front + 1) % len(old)
         self._front = 0
 
     def __len__(self):
