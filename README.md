@@ -1,6 +1,7 @@
 # Data-Structures-And-Algorithms
 
-Exercise repository with implementations of famous data structures and algorithms both in Python and C++.
+Exercise repository with implementations of famous data structures and algorithms in Python and C++.
+
 Each has a detailed description with operations costs analysis.
 * `Data-Structures`:
   - `Dynamic-Array`
@@ -19,13 +20,13 @@ Each has a detailed description with operations costs analysis.
     - Python implementation using the built-in Python List class + Unit Tests
     - Python implementation using `Linked-List` + Unit Tests
   - `Queue`
+    - C++ implementation using `Linked-List` + improvised Unit Tests
+    - C++ implementation using `Circular-Array` + improvised Unit Tests
     - Python implementation using `Linked-List` + Unit Tests
     - Python implementation using `Circular-Array` + Unit Tests
-    - C++ implementation using `Linked-List` + improvised Unit Tests
-  - `Deque`
-    - Python implementation using `Doubly-Linked-List` + Unit Tests
+    - `Deque`
     - C++ implementation using `Doubly-Linked-List` + improvised Unit Tests
-
+    - Python implementation using `Doubly-Linked-List` + Unit Tests
 
 # Resources:
 * `Algorithms, Fourth Edition by Robert Sedgewick`
