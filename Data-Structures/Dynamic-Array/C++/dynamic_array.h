@@ -55,8 +55,11 @@ public:
     return ReverseIterator<T>(temp, size);
   }
 
-private:
+
+public:
   void Resize(size_t);
+
+private:
   void Free();
   void CopyFrom(const DynamicArray&);
 };
@@ -108,7 +111,7 @@ DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray& other)
 template<class T>
 T& DynamicArray<T>::operator[](size_t index)
 {
-  if (index >= size) throw std::out_of_range("Index Out Of Range!");
+  if (index < 0 || index >= capacity) throw std::out_of_range("Index Out Of Range!");
   return array[index];
 }
 
