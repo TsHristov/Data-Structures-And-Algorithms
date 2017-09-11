@@ -11,13 +11,16 @@ private:
 
 public:
   Queue():front(0), size(0), array() {}
-  Queue(const Queue&);
+  Queue(const Queue& other):
+    front(other.front),
+    size(other.size),
+    array(other.array) {}
   Queue& operator=(const Queue&);
 
 public:
   void Enqueue(const T& data);
-  T Dequeue();
-  T First()
+  const T& Dequeue();
+  const T& First()
   {
     if(Empty()) throw EmptyQueue();
     return array[front];
@@ -35,20 +38,20 @@ void Queue<T>::Enqueue(const T& data)
   size_t array_capacity = array.GetCapacity();
   if(size == array_capacity) Resize(2 * array_capacity);
   size_t available_position = (front + size) % array.GetCapacity();
-  array[available_position] = data;
+  array.Insert(available_position, data);
   size += 1;
 }
 
 template<class T>
-T Queue<T>::Dequeue()
+const T& Queue<T>::Dequeue()
 {
   if(Empty()) throw EmptyQueue();
   size_t array_capacity = array.GetCapacity();
-  T element = array[front];
-  front = (front + 1) % array_capacity;
-  size -= 1;
   if(size < array_capacity / 4) Resize(array_capacity / 2);
-  return element;
+  size_t front = this->front;
+  this->front  = (this->front + 1) % array_capacity;
+  size -= 1;
+  return array[front];
 }
 
 template<class T>
