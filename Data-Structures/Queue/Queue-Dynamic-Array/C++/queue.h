@@ -18,6 +18,17 @@ public:
   Queue& operator=(const Queue&);
 
 public:
+  bool operator==(const Queue& other)
+  {
+    if(this == &other) return true;
+    return array == other.array;
+  }
+  bool operator!=(const Queue& other)
+  {
+    return !(array == other.array);
+  }
+
+public:
   void Enqueue(const T& data);
   const T& Dequeue();
   const T& First()
@@ -54,6 +65,18 @@ const T& Queue<T>::Dequeue()
   return array[front];
 }
 
+template<class T>
+Queue<T>& Queue<T>::operator=(const Queue& other)
+{
+  if(this == &other) return *this;
+  else
+  {
+    front = other.front;
+    size  = other.size;
+    array = other.array;
+    return *this;
+  }
+}
 template<class T>
 void Queue<T>::Resize(size_t capacity)
 {
