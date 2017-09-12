@@ -1,9 +1,9 @@
 # Queue API: C++ / Python
 * `void Enqueue(const T&)`/`enqueue(data)` - add an element to the tail of the queue
   - `O(1)` - amortized, because of the resizing of the underlying array
-* `T Dequeue()`/`dequeue()` - remove and return the head of the queue
+* `const T& Dequeue()`/`dequeue()` - remove and return the head of the queue
   - `O(1)` - amortized, because of the resizing of the underlying array
-* `T First()`/`first()` - returns the head of the queue
+* `const T& First()`/`first()` - returns the head of the queue
   - `O(1)`
 * `bool Empty()`/`is_empty()` - checks if the queue is empty
   - `O(1)`

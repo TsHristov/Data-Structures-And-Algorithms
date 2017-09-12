@@ -24,7 +24,7 @@ Each has a detailed description with operations costs analysis.
     - C++ implementation using `Circular-Array` + improvised Unit Tests
     - Python implementation using `Linked-List` + Unit Tests
     - Python implementation using `Circular-Array` + Unit Tests
-    - `Deque`
+  - `Deque`
     - C++ implementation using `Doubly-Linked-List` + improvised Unit Tests
     - Python implementation using `Doubly-Linked-List` + Unit Tests
 

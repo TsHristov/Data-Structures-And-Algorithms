@@ -113,6 +113,5 @@ int main()
   Test_CopyConstructor();
   Test_OperatorEqual();
   Test_Compare();
-  // Test_Iterator();
   return 0;
 }
