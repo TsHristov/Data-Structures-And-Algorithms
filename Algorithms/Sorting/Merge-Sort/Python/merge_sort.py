@@ -23,12 +23,13 @@ def merge(arr, left, middle, right):
             j += 1
         k += 1
 
-    # Copy the remaining elements of L, if there are any:
+    # Copy the remaining elements of the left subarray, if there are any:
     while i < count_left:
         arr[k] = left_subarray[i]
         i += 1
         k += 1
 
+    # Copy the remaining elements of the right subarray, if there are any:
     while j < count_right:
         arr[k] = right_subarray[j]
         j += 1
