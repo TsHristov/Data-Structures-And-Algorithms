@@ -47,12 +47,14 @@ public:
   
 public:
   // Graph algorithms:
-  void BFS(unsigned); // O(n^2)
-  void DFS(unsigned); // O(n^2)
-  bool has_cycle();   // O(n^2)
+  void BFS(unsigned);                 // O(n^2)
+  void DFS(unsigned);                 // O(n^2)
+  bool has_cycle();                   // O(n^2)
+  void all_paths(unsigned, unsigned); // O(2^n)
 
 private:
   void check_cycle_exists(unsigned , int, bool&, char*);
+  void find_all_paths(unsigned, unsigned, char*, unsigned*, int&);
 };
 
 Graph :: Graph(unsigned vertices) {
@@ -133,6 +135,8 @@ void Graph :: check_cycle_exists(unsigned start, int parent, bool &cycle, char *
   for(unsigned vertex=0; vertex < vertices; vertex++) {
     if(cycle) return;
     if(edge_exists(start,vertex)) {
+      // A cycle exists if there is already visited vertex,
+      // which is diferent than the parent of the current one:
       if(visited[vertex] && vertex != parent) {
 	cycle = true;
 	return;
@@ -161,3 +165,48 @@ bool Graph :: has_cycle() {
   return cycle;
 }
 
+
+void Graph :: all_paths(unsigned start, unsigned end) {
+  char *visited  = new (nothrow) char[vertices];
+  if(!visited) return;
+
+  // Start off with unvisited array of vertices:
+  for(unsigned vertex; vertex < vertices; vertex++) visited[vertex] = 0;
+  
+  unsigned *path = new (nothrow) unsigned[vertices];
+  if(!path) return;
+
+
+  int vertices_count = 0; // Count of vertices that make up the path
+  // Find all paths between start vertex and end vertex, using DFS (or BFS):
+  find_all_paths(start, end, visited, path, vertices_count);
+
+  delete[] visited;
+  delete[] path;
+}
+
+
+void Graph :: find_all_paths(unsigned start, unsigned end, char *visited, unsigned *path, int &count) {
+  // If the end vertex is reached, print the current path:
+  if(start == end) {
+    path[count] = end;
+    for(int vertex=0; vertex < count; vertex++) {
+      cout << "|" << path[vertex] + 1 << "| ";
+    }
+    cout << "\n";
+    return;
+  }
+
+  visited[start] = 1;
+  path[count++]  = start;
+  for(unsigned vertex=0; vertex < vertices; vertex++) {
+    if(edge_exists(start, vertex) && !visited[vertex]) {
+      // Find all paths to end from current adjacent vertex:
+      find_all_paths(vertex, end, visited, path, count);
+    }
+  }
+
+  // Mark the current vertex as unvisited, so it can be visited in next traversal:
+  visited[start] = 0;
+  count--;
+}

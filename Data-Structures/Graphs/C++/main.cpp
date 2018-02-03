@@ -15,9 +15,6 @@ int main(){
     cin >> j;
     graph.add_edge(i-1,j-1);
   }
-
-  cout << "Does the graph has a cycle?: ";
-  (graph.has_cycle()) ? cout << "Yes\n" : cout << "No\n";
   
   return 0;  
 }
