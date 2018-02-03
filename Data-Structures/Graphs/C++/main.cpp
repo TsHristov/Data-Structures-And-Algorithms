@@ -15,18 +15,9 @@ int main(){
     cin >> j;
     graph.add_edge(i-1,j-1);
   }
-  graph.print();
 
-  int start;
-  // cout << "Start vertex for BFS:";
-  // cin >> start;
-  // cout << "Bread-First Search from vertex:" << start << "\n";
-  // graph.BFS(start-1);
-
-  cout << "Start vertex for BFS:";
-  cin >> start;
-  cout << "Bread-First Search from vertex:" << start << "\n";
-  graph.DFS(start - 1);
+  cout << "Does the graph has a cycle?: ";
+  (graph.has_cycle()) ? cout << "Yes\n" : cout << "No\n";
   
   return 0;  
 }

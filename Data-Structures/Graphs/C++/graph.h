@@ -41,10 +41,18 @@ public:
     }
   }
 
+  unsigned vertices_count() {
+    return vertices;
+  }
+  
 public:
   // Graph algorithms:
-  void BFS(unsigned);
-  void DFS(unsigned);
+  void BFS(unsigned); // O(n^2)
+  void DFS(unsigned); // O(n^2)
+  bool has_cycle();   // O(n^2)
+
+private:
+  void check_cycle_exists(unsigned , int, bool&, char*);
 };
 
 Graph :: Graph(unsigned vertices) {
@@ -117,3 +125,39 @@ void Graph :: DFS(unsigned start) {
   }
   delete[] visited;
 }
+
+void Graph :: check_cycle_exists(unsigned start, int parent, bool &cycle, char *visited) {
+
+  visited[start] = 1;
+  
+  for(unsigned vertex=0; vertex < vertices; vertex++) {
+    if(cycle) return;
+    if(edge_exists(start,vertex)) {
+      if(visited[vertex] && vertex != parent) {
+	cycle = true;
+	return;
+      }
+      else if(vertex != parent) {
+	check_cycle_exists(vertex, start, cycle, visited);
+      }
+    }
+  }
+}
+
+bool Graph :: has_cycle() {
+  bool cycle = false;
+
+  char *visited = new (nothrow) char[vertices];
+
+  for(unsigned i = 0; i < vertices; i++) visited[i] = 0;
+  
+  for(unsigned vertex = 0; vertex < vertices; vertex++) {
+    if(!visited[vertex]) check_cycle_exists(vertex, -1, cycle, visited);
+    if(cycle) break;
+  }
+
+  delete[] visited;
+  
+  return cycle;
+}
+
