@@ -15,6 +15,6 @@ int main(){
     cin >> j;
     graph.add_edge(i-1,j-1);
   }
-  
+
   return 0;  
 }

@@ -172,10 +172,10 @@ void Graph :: all_paths(unsigned start, unsigned end) {
 
   // Start off with unvisited array of vertices:
   for(unsigned vertex; vertex < vertices; vertex++) visited[vertex] = 0;
-  
+
+  // An array where the different paths from start to end vertex will reside:
   unsigned *path = new (nothrow) unsigned[vertices];
   if(!path) return;
-
 
   int vertices_count = 0; // Count of vertices that make up the path
   // Find all paths between start vertex and end vertex, using DFS (or BFS):
@@ -186,27 +186,28 @@ void Graph :: all_paths(unsigned start, unsigned end) {
 }
 
 
-void Graph :: find_all_paths(unsigned start, unsigned end, char *visited, unsigned *path, int &count) {
+void Graph :: find_all_paths(unsigned start, unsigned end, char *visited, unsigned *path, int &vertices_count) {
   // If the end vertex is reached, print the current path:
   if(start == end) {
-    path[count] = end;
-    for(int vertex=0; vertex < count; vertex++) {
-      cout << "|" << path[vertex] + 1 << "| ";
+    path[vertices_count] = end;
+    for(int vertex=0; vertex < vertices_count; vertex++) {
+      cout << path[vertex] + 1 << " ";
     }
     cout << "\n";
     return;
   }
 
-  visited[start] = 1;
-  path[count++]  = start;
+
+  visited[start] = 1;   // Mark the current vertex as visited
+  path[vertices_count++]  = start; // Add the current vertex to the path
   for(unsigned vertex=0; vertex < vertices; vertex++) {
     if(edge_exists(start, vertex) && !visited[vertex]) {
-      // Find all paths to end from current adjacent vertex:
-      find_all_paths(vertex, end, visited, path, count);
+      // Find all paths from `vertex` to `end`:
+      find_all_paths(vertex, end, visited, path, vertices_count);
     }
   }
 
   // Mark the current vertex as unvisited, so it can be visited in next traversal:
   visited[start] = 0;
-  count--;
+  vertices_count--;
 }
