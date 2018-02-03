@@ -1,5 +1,5 @@
 // Applies the Adapter Pattern - contains LinkedList instance
-#include "../../Linked-List/linked_list.h"
+#include "../../../Linked-List/C++/linked_list.h"
 
 template<class T>
 class Stack
