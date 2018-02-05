@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <limits>
+#include <algorithm>
 #include "../../Queue/Queue-Linked-List/C++/queue.h"
 #include "../../Stack/Stack-Linked-List/C++/stack.h"
 using namespace std;
@@ -47,10 +49,11 @@ public:
   
 public:
   // Graph algorithms:
-  void BFS(unsigned);                 // O(n^2)
-  void DFS(unsigned);                 // O(n^2)
+  void bfs(unsigned);                 // O(n^2)
+  void dfs(unsigned);                 // O(n^2)
   bool has_cycle();                   // O(n^2)
   void all_paths(unsigned, unsigned); // O(2^n)
+  void dijkstra(unsigned);            // O(n^2) (O(nlog2n) if min-heap is used)
 
 private:
   void check_cycle_exists(unsigned , int, bool&, char*);
@@ -75,7 +78,7 @@ Graph :: ~Graph(){
   delete[] graph;
 }
 
-void Graph :: BFS(unsigned start) {
+void Graph :: bfs(unsigned start) {
   Queue<int> queue = Queue<int>();
   queue.Enqueue(start);
 
@@ -102,7 +105,7 @@ void Graph :: BFS(unsigned start) {
   delete[] visited;
 }
 
-void Graph :: DFS(unsigned start) {
+void Graph :: dfs(unsigned start) {
   Stack<int> stack = Stack<int>();
   stack.Push(start);
 
@@ -197,7 +200,6 @@ void Graph :: find_all_paths(unsigned start, unsigned end, char *visited, unsign
     return;
   }
 
-
   visited[start] = 1;   // Mark the current vertex as visited
   path[vertices_count++]  = start; // Add the current vertex to the path
   for(unsigned vertex=0; vertex < vertices; vertex++) {
@@ -211,3 +213,78 @@ void Graph :: find_all_paths(unsigned start, unsigned end, char *visited, unsign
   visited[start] = 0;
   vertices_count--;
 }
+
+
+void Graph :: dijkstra(unsigned start) {
+  const int MAX_VALUE = numeric_limits<int>::max();
+  
+  unsigned *distance = new (nothrow) unsigned[vertices];
+  if(!distance) return;
+
+  // Initialize all adjacent vertices with the distance to start,
+  // else those not adjacent to start with MAX_VALUE:
+  for(int vertex=0; vertex < vertices; vertex++) {
+    if(edge_exists(start,vertex)) {
+      distance[vertex] = graph[start][vertex];
+    } else {
+      distance[vertex] = MAX_VALUE;
+    }
+  }
+
+  // Create an array of unvisited vertices:
+  unsigned *unvisited = new (nothrow) unsigned[vertices];
+  if(!unvisited) return;
+
+  // Start with all vertices as unvisited, except for the start vertex:
+  for(int vertex=0; vertex < vertices; vertex++){
+    if(vertex == start){
+      unvisited[vertex] = 0;
+    } else {
+      unvisited[vertex] = 1;   
+    }
+  }
+
+  while(true) {
+    int min_distance_vertex = -1;
+    int min_distance        = MAX_VALUE;
+    
+    // Find the unvisited vertex with min distance:
+    for(unsigned vertex=0; vertex < vertices; vertex++) {
+      if(unvisited[vertex] && distance[vertex] < min_distance) {
+	min_distance        = distance[vertex];
+	min_distance_vertex = vertex;
+      }
+    }
+
+    // If all vertices have MAX_VALUE:
+    if (min_distance_vertex == -1) break;
+
+    // Remove the vertex with min distance from the unvisited set:
+    unvisited[min_distance_vertex] = 0;
+
+    for (unsigned vertex=0; vertex < vertices; vertex++) {
+      if (unvisited[vertex] && edge_exists(min_distance_vertex, vertex)) {
+	if (distance[vertex] > distance[min_distance_vertex] + graph[min_distance_vertex][vertex]) {
+	  distance[vertex] = distance[min_distance_vertex] + graph[min_distance_vertex][vertex];
+	}
+      }
+    }
+  }
+
+  // Print the min distances to all vertices from `start` vertex:  
+  for (unsigned vertex=0; vertex < vertices; vertex++) {
+    if (vertex != start) {
+      if(distance[vertex] == MAX_VALUE) {
+	cout << "Distance from vertex " << start + 1 << " to vertex " << vertex + 1 \
+	     << " : " << "unspecified" << "\n";
+      } else {
+	cout << "Distance from vertex " << start + 1 << " to vertex " << vertex + 1 \
+	     << " : " << distance[vertex] << "\n";
+      }
+    }
+  }
+
+  delete[] distance;
+  delete[] unvisited;
+}
+

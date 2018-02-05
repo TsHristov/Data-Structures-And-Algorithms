@@ -3,7 +3,7 @@
 using namespace std;
 
 int main(){
-  Graph graph = Graph(14);
+  Graph graph = Graph(10);
 
   int i,j;
 
@@ -13,8 +13,10 @@ int main(){
     if(i == -1) break;
     cout << "j:";
     cin >> j;
+    cout << "weight:";
     graph.add_edge(i-1,j-1);
   }
 
+    
   return 0;  
 }
