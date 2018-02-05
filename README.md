@@ -27,6 +27,17 @@ Each has a detailed description with operations costs analysis.
   - `Deque`
     - C++ implementation using `Doubly-Linked-List` + improvised Unit Tests
     - Python implementation using `Doubly-Linked-List` + Unit Tests
+  - `Graph`
+    - BFS, DFS, Dijkstra
+
+* `Algorithms`:
+  - `Sorting`:
+    - `Insertion-Sort`
+    - `Counting-Sort`
+    - `Heap-Sort`
+    - `Merge-Sort`
+  - `Searching`:
+    - `Binary-Search`
 
 # Resources:
 * `Algorithms, Fourth Edition by Robert Sedgewick`
